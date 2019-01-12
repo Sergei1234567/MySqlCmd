@@ -3,18 +3,20 @@ package ua.com.mysqlcmd;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class DatabaseConnect {
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        System.out.println("want to connect to the database enter the user database name and password\n__________");
         Scanner scan = new Scanner(System.in);
-        System.out.println("databaseName:");
-        String database = scan.next();
-        System.out.println("user:");
-        String user = scan.next();
+        System.out.println("want to connect to the database enter the user database name and password\n__________");
+        System.out.println("database name:");
+        String database = scan.nextLine();
+        System.out.println("user name:");
+        String user = scan.nextLine();
         System.out.println("password:");
-        String password = scan.next();
+        String password = scan.nextLine();
 
         Connection connection = getConnection(database, user, password);
         connection.close();
