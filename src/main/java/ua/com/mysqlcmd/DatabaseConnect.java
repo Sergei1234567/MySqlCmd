@@ -10,11 +10,11 @@ public class DatabaseConnect {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Scanner scan = new Scanner(System.in);
         System.out.println("want to connect to the database enter the user database name and password\n__________");
-        System.out.println("database name:");
+        System.out.print("database name:");
         String database = scan.nextLine();
-        System.out.println("user name:");
+        System.out.print("user name:");
         String user = scan.nextLine();
-        System.out.println("password:");
+        System.out.print("password:");
         String password = scan.nextLine();
 
         Connection connection = getConnection(database, user, password);
