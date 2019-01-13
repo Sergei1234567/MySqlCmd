@@ -8,14 +8,12 @@ import java.util.Scanner;
 public class DatabaseConnect {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Scanner scan = new Scanner(System.in);
         System.out.println("want to connect to the database enter the user database name and password\n__________");
-        System.out.print("database name:");
+        Scanner scan = new Scanner(System.in);
         String database = scan.nextLine();
-        System.out.print("user name:");
         String user = scan.nextLine();
-        System.out.print("password:");
         String password = scan.nextLine();
+        System.out.print(database + " " + user + " " + password + " ");
 
         Connection connection = getConnection(database, user, password);
         connection.close();
