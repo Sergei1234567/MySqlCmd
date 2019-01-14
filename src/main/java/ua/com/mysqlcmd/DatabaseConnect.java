@@ -10,13 +10,25 @@ public class DatabaseConnect {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         System.out.println("want to connect to the database enter the user database name and password\n__________");
         Scanner scan = new Scanner(System.in);
-        String database = scan.nextLine();
-        String user = scan.nextLine();
-        String password = scan.nextLine();
-        System.out.print(database + " " + user + " " + password + " ");
+        String database = "";
+        String user = "";
+        String password = "";
+        boolean r ;
 
+        String s = "connect  database  usernaeme password";
+        String c = scan.nextLine();
+        r = s.equals(c);
+        if (! true == r) {
+            System.out.println(s);
+            database = scan.nextLine();
+            user = scan.nextLine();
+            password = scan.nextLine();
+        } else {
+            System.out.println("ttttttt");
+        }
         Connection connection = getConnection(database, user, password);
         connection.close();
+
     }
 
     private static Connection getConnection(String database, String user, String password) throws ClassNotFoundException, SQLException {
@@ -30,4 +42,5 @@ public class DatabaseConnect {
         }
         return connection;
     }
+
 }
