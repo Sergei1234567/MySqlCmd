@@ -24,7 +24,11 @@ public class DatabaseConnect {
             user = scan.nextLine();
             password = scan.nextLine();
         } else {
-            System.out.println("ttttttt");
+            System.out.println("enter request again");
+            System.out.println(s);
+            database = scan.nextLine();
+            user = scan.nextLine();
+            password = scan.nextLine();
         }
         Connection connection = getConnection(database, user, password);
         connection.close();
