@@ -10,30 +10,8 @@ public class DatabaseConnect {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         System.out.println("enter the command: connect database username password\n__________");
         Scanner scan = new Scanner(System.in);
-        String database;
-        String user;
-        String password;
-        boolean r;
-
-        String s = "connect  database  usernaeme password";
-        String c = scan.nextLine();
-        r = s.equals(c);
-        if (!true == r) {
-            System.out.println("enter database name username password\n___________");
-            database = scan.nextLine();
-            user = scan.nextLine();
-            password = scan.nextLine();
-        } else {
-            System.out.println("enter request again");
-            System.out.println("enter the command: connect database username password\n__________");
-            System.out.println("enter database name username password\n___________");
-            database = scan.nextLine();
-            user = scan.nextLine();
-            password = scan.nextLine();
-        }
-        Connection connection = getConnection(database, user, password);
-        connection.close();
-
+        String s = scan.nextLine();
+        System.out.println(s);
     }
 
     private static Connection getConnection(String database, String user, String password) throws ClassNotFoundException, SQLException {
