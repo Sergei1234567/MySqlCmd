@@ -17,7 +17,7 @@ public class DatabaseConnect {
         String[] commandExecution = comand.split("-");
 
         for (String subcomand : commandExecution){
-        System.out.print(subcomand.split("-"));
+        System.out.print(subcomand);
         }
 
         Connection connection = getConnection(database, user, password);
