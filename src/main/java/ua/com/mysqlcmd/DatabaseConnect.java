@@ -8,10 +8,20 @@ import java.util.Scanner;
 public class DatabaseConnect {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        String database = null;
+        String user = null;
+        String password = null;
         System.out.println("enter the command: connect database username password\n__________");
         Scanner scan = new Scanner(System.in);
         String comand = scan.nextLine();
-        System.out.println(comand);
+        String[] commandExecution = comand.split("-");
+
+        for (String subcomand : commandExecution){
+        System.out.print(subcomand.split("-"));
+        }
+
+        Connection connection = getConnection(database, user, password);
+        connection.close();
     }
 
     private static Connection getConnection(String database, String user, String password) throws ClassNotFoundException, SQLException {
