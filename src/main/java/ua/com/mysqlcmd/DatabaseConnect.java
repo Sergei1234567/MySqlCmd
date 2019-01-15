@@ -8,27 +8,23 @@ import java.util.Scanner;
 public class DatabaseConnect {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        String database = null;
-        String user = null;
-        String password = null;
         System.out.println("enter the command: connect database username password\n__________");
         Scanner scan = new Scanner(System.in);
         String comand = scan.nextLine();
-        String[] commandExecution = comand.split("-");
+        String[] data = comand.split("|");
+        String databaseName = data[0];
+        String userName = data[1];
+        String password = data[2];
 
-        for (String subcomand : commandExecution){
-        System.out.print(subcomand);
-        }
-
-        Connection connection = getConnection(database, user, password);
+        Connection connection = getConnection(databaseName, userName, password);
         connection.close();
     }
 
-    private static Connection getConnection(String database, String user, String password) throws ClassNotFoundException, SQLException {
+    private static Connection getConnection(String databaseName, String userName, String password) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + database, user, password);
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName, userName, password);
         if (connection != null) {
-            System.out.println("You made it, take control your database now!");
+            System.out.println("You made it, take control your databaseName now!");
         } else {
             System.out.println("Failed to make connection!");
 
