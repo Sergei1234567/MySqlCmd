@@ -19,7 +19,7 @@ public class MainController {
             String userName = splittedCommand[2];
             String password = splittedCommand[3];
             try {
-                manager.connection(databaseName, userName, password);
+                manager.connect(databaseName, userName, password);
                 Connection connection = manager.getConnection();
                 connection.close();
                 break;

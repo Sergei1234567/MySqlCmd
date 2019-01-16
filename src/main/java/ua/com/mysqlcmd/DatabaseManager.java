@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class DatabaseManager {
     private Connection connection;
 
-    public void connection(String databaseName, String userName, String password) throws RuntimeException {
+    public void connect(String databaseName, String userName, String password) throws RuntimeException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
