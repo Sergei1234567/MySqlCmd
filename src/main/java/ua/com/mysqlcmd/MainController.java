@@ -1,3 +1,5 @@
+package ua.com.mysqlcmd;
+
 import ua.com.mysqlcmd.DatabaseConnect;
 
 import java.sql.Connection;
