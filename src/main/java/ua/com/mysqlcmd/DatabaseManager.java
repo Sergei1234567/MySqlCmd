@@ -4,23 +4,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnect {
+public class DatabaseManager {
     private Connection connection;
 
-    public void connection(String databaseName, String userName, String password) {
+    public void connection(String databaseName, String userName, String password) throws RuntimeException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("Please add jdbc jar to project.");
+            throw new RuntimeException("Please add jdbc jar to project.", e);
         }
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName, userName, password);
         } catch (SQLException e) {
-            System.out.println(String.format("Cant get connection for database:%s user:%s,", databaseName, userName));
-            e.printStackTrace();
             connection = null;
+            throw new RuntimeException(String.format("Cant get connection for database:%s user:%s,",
+                    databaseName, userName),
+                    e);
         }
     }
+
 
     public Connection getConnection() {
         return connection;
