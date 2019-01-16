@@ -6,30 +6,43 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class DatabaseConnect {
+    private Connection connection;
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        System.out.println("enter the command: connect database username password\n__________");
+        DatabaseConnect manager = new DatabaseConnect();
+        System.out.println("Hi user!");
+        System.out.println("Please enter the database name, username, password in the format:" +
+                "connect databaseName userName  password\n__________________");
         Scanner scan = new Scanner(System.in);
         String comand = scan.nextLine();
-        String[] data = comand.split("|");
-        String databaseName = data[0];
-        String userName = data[1];
-        String password = data[2];
+        String[] data = comand.split("\\s");
+        String connectUser = data[0];
+        String databaseName = data[1];
+        String userName = data[2];
+        String password = data[3];
+        System.out.println(connectUser + ":" + "Connection successful!");
 
-        Connection connection = getConnection(databaseName, userName, password);
+        manager.connection(databaseName, userName, password);
+        Connection connection = manager.getConnection();
         connection.close();
     }
 
-    private static Connection getConnection(String databaseName, String userName, String password) throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName, userName, password);
-        if (connection != null) {
-            System.out.println("You made it, take control your databaseName now!");
-        } else {
-            System.out.println("Failed to make connection!");
-
+    private void connection(String databaseName, String userName, String password) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Please add jdbc jar to project.");
         }
-        return connection;
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName, userName, password);
+        } catch (SQLException e) {
+            System.out.println(String.format("Cant get connection for database:%s user:%s,", databaseName, userName));
+            e.printStackTrace();
+            connection = null;
+        }
     }
 
+    private Connection getConnection() {
+        return connection;
+    }
 }
