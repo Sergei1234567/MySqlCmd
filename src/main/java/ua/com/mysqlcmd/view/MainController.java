@@ -1,5 +1,6 @@
 package ua.com.mysqlcmd.view;
 
+import ua.com.mysqlcmd.view.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
 
@@ -18,6 +19,7 @@ public class MainController {
             String databaseName = splittedCommand[1];
             String userName = splittedCommand[2];
             String password = splittedCommand[3];
+
             try {
                 manager.connect(databaseName, userName, password);
                 manager.closeConnection();

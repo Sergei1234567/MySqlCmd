@@ -1,7 +1,7 @@
 package ua.com.mysqlcmd;
 
 import org.junit.Before;
-import ua.com.mysqlcmd.view.DatabaseManager;
+import ua.com.mysqlcmd.view.manager.DatabaseManager;
 
 public class DatabaseManagerTest {
     private DatabaseManager manager;

@@ -1,4 +1,4 @@
-package ua.com.mysqlcmd.view;
+package ua.com.mysqlcmd.view.manager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ public class DatabaseManager {
             throw new RuntimeException("Please add jdbc jar to project.", e);
         }
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName, userName, password);
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+ databaseName, userName, password);
         } catch (SQLException e) {
             connection = null;
             throw new RuntimeException(String.format("Cant get connection for database:%s user:%s,",
