@@ -1,18 +1,20 @@
 package ua.com.mysqlcmd;
 
+import view.Console;
+import view.View;
+
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Scanner;
 
 public class MainController {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
+        View view = new Console();
         DatabaseManager manager = new DatabaseManager();
-        System.out.println("Hi user!");
+
+        view.write("Hi user!");
         while (true) {
             System.out.println("Please enter the database name, username, password in the format:" +
                     "connect databaseName userName  password\n__________________");
-            Scanner scan = new Scanner(System.in);
-            String command = scan.nextLine();
+            String command = view.read();
             String[] splittedCommand = command.split("\\s");
             String connectCommand = splittedCommand[0];
             String databaseName = splittedCommand[1];
@@ -28,10 +30,10 @@ public class MainController {
                 if(e.getCause() != null){
                     message += " " + e.getCause().getMessage();
                 }
-                System.out.println("Failure due to:" + message);
-                System.out.println("Try again");
+                view.write("Failure due to:" + message);
+                view.write("Try again");
             }
         }
-        System.out.println("Connection successful");
+        view.write("Connection successful");
     }
 }
