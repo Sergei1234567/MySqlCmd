@@ -1,7 +1,7 @@
-package ua.com.mysqlcmd;
+package ua.com.mysqlcmd.view;
 
-import view.Console;
-import view.View;
+import ua.com.mysqlcmd.view.view.Console;
+import ua.com.mysqlcmd.view.view.View;
 
 public class MainController {
     public static void main(String[] args) {

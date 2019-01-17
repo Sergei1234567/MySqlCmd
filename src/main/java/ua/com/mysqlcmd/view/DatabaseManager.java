@@ -1,4 +1,4 @@
-package ua.com.mysqlcmd;
+package ua.com.mysqlcmd.view;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,8 +1,8 @@
-package view;
+package ua.com.mysqlcmd.view.view;
 
 import java.util.Scanner;
 
-public class Console implements View{
+public class Console implements View {
 
     @Override
     public void write(String message) {
