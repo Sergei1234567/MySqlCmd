@@ -3,8 +3,6 @@ package ua.com.mysqlcmd;
 import view.Console;
 import view.View;
 
-import java.sql.Connection;
-
 public class MainController {
     public static void main(String[] args) {
         View view = new Console();
@@ -22,8 +20,7 @@ public class MainController {
             String password = splittedCommand[3];
             try {
                 manager.connect(databaseName, userName, password);
-                Connection connection = manager.getConnection();
-                connection.close();
+                manager.closeConnection();
                 break;
             } catch (Exception e) {
                 String message = e.getMessage();

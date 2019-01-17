@@ -23,9 +23,10 @@ public class DatabaseManager {
         }
     }
 
-    public Connection getConnection() {
-        return connection;
+    public void closeConnection() throws SQLException {
+         connection.close();
     }
+
 }
 
 
