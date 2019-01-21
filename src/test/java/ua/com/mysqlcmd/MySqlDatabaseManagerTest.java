@@ -1,15 +1,10 @@
 package ua.com.mysqlcmd;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import static junit.framework.TestCase.assertEquals;
 
 public class MySqlDatabaseManagerTest {
     private MySqlDatabaseManager manager;
@@ -20,15 +15,12 @@ public class MySqlDatabaseManagerTest {
     }
 
     @Test
-    public void testConnect() throws RuntimeException, IOException {
-        manager.connect("sqlcmd", "root", "root");
-        Path tmpDir = Files.createTempDirectory("tmp");
-        tmpDir.toFile().delete();
+    public void testConnect() throws RuntimeException{
         try {
-            Files.createTempFile(tmpDir, "test", ".txt");
-            Assert.fail("Expected RuntimeException");
-        } catch (IOException thrown) {
-            Assert.assertNotEquals("", thrown.getMessage());
+        manager.connect("sqlcmd", "root", "root");
+        }catch (RuntimeException e){
+            assertEquals("Cant get connection for database:%s user:%s,",e.getMessage());
         }
+
     }
 }
