@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
 
+
 import static junit.framework.TestCase.assertEquals;
 
 public class MySqlDatabaseManagerTest {
@@ -15,11 +16,11 @@ public class MySqlDatabaseManagerTest {
     }
 
     @Test
-    public void testConnect() throws RuntimeException{
+    public void testConnect() throws RuntimeException {
         try {
-        manager.connect("sqlcmd", "root", "root");
+        manager.connect("sqlcmd", "roo", "root");
         }catch (RuntimeException e){
-            assertEquals("Cant get connection for database:%s user:%s,",e.getMessage());
+            assertEquals("Cant get connection for database:%s user:%s password:%s,", e.getMessage());
         }
 
     }
