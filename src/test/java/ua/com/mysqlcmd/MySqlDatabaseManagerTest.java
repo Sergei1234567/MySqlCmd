@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
 
+import java.sql.SQLException;
+
 public class MySqlDatabaseManagerTest {
     private MySqlDatabaseManager manager;
 
@@ -20,6 +22,7 @@ public class MySqlDatabaseManagerTest {
     @Test
     public void testConnect() {
         manager.connect("sqlcmd", "root", "root");
+        exception.expect(SQLException.class);
         exception.expectMessage("Cant get connection for database:sqlcmd user:root password:root,");
         throw new RuntimeException("Cant get connection for database:sqlcmd user:root password:root,");
     }
