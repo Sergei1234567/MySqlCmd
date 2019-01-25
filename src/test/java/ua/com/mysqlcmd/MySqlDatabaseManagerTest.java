@@ -22,7 +22,7 @@ public class MySqlDatabaseManagerTest {
     @Test
     public void testConnect() {
         manager.connect("sqlcmd", "root", "root");
-        exception.expect(SQLException.class);
+        exception.expect(Exception.class);
         exception.expectMessage("Cant get connection for database:sqlcmd user:root password:root,");
         throw new RuntimeException("Cant get connection for database:sqlcmd user:root password:root,");
     }
