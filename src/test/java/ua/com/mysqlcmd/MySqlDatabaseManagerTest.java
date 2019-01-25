@@ -1,11 +1,10 @@
 package ua.com.mysqlcmd;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
-
-
-import static junit.framework.TestCase.assertEquals;
 
 public class MySqlDatabaseManagerTest {
     private MySqlDatabaseManager manager;
@@ -15,13 +14,13 @@ public class MySqlDatabaseManagerTest {
         manager = new MySqlDatabaseManager();
     }
 
-    @Test
-    public void testConnect() throws RuntimeException {
-        try {
-        manager.connect("sqlcmd", "roo", "root");
-        }catch (RuntimeException e){
-            assertEquals("Cant get connection for database:%s user:%s password:%s,", e.getMessage());
-        }
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
 
+    @Test
+    public void testConnect() {
+        manager.connect("sqlcmd", "root", "root");
+        exception.expectMessage("Cant get connection for database:sqlcmd user:root password:root,");
+        throw new RuntimeException("Cant get connection for database:sqlcmd user:root password:root,");
     }
 }
