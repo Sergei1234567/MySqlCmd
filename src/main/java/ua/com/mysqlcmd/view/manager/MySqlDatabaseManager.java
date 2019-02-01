@@ -1,12 +1,12 @@
 package ua.com.mysqlcmd.view.manager;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySqlDatabaseManager implements DatabaseManager {
 
     private Connection connection;
+    private Object userName = null;
+    private Object password = null;
 
     static {
         try {
@@ -15,6 +15,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
             throw new RuntimeException("Please add jdbc jar to project.", e);
         }
     }
+
 
     public void connect(String databaseName, String userName, String password) throws RuntimeException {
         try {
@@ -29,6 +30,17 @@ public class MySqlDatabaseManager implements DatabaseManager {
         connection.close();
     }
 
+    @Override
+    public void insert() throws RuntimeException {
+        try {
+            Statement stm = connection.createStatement();
+            stm.executeUpdate("INSERT  INTO user(userName, password) VALUES ('Stiven', 'Pupkin')");
+            stm.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format("не могу вставить имя пользователя и пароль\n: userName:%s password:%s,",
+                    userName, password), e);
+        }
+    }
 }
 
 

@@ -7,4 +7,6 @@ public interface DatabaseManager {
     void connect(String databaseName, String userName, String password) throws RuntimeException;
 
     void closeConnection() throws SQLException;
+
+    void insert() throws RuntimeException;
 }

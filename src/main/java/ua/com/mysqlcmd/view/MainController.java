@@ -4,8 +4,10 @@ import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
 import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
 
+import java.sql.SQLException;
+
 public class MainController {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         View view = new Console();
         MySqlDatabaseManager manager = new MySqlDatabaseManager();
 
@@ -24,7 +26,6 @@ public class MainController {
             if (connectCommand.equals("connect")) {
                 try {
                     manager.connect(databaseName, userName, password);
-                    manager.closeConnection();
 
                     break;
                 } catch (Exception e) {
@@ -40,5 +41,20 @@ public class MainController {
             }
         }
         view.write("Соединение успешно");
+
+        try {
+            manager.insert();
+
+        } catch (RuntimeException e) {
+            String message = e.getMessage();
+            if (e.getCause() != null) {
+                message += " " + e.getCause().getMessage();
+                view.write( message);
+            }else {
+                //do nosing
+            }
+        }
+        manager.closeConnection();
     }
+
 }
