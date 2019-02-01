@@ -9,10 +9,10 @@ public class MainController {
         View view = new Console();
         MySqlDatabaseManager manager = new MySqlDatabaseManager();
 
-        view.write("Hi user!");
+        view.write("Привет пользователь!");
 
         while (true) {
-            view.write("Please enter the command in the format:" +
+            view.write("Пожалуйста, введите команду в формате\n:" +
                     "connect databaseName userName  password\n__________________");
             String command = view.read();
             String[] splittedCommand = command.split("\\s");
@@ -32,13 +32,13 @@ public class MainController {
                     if (e.getCause() != null) {
                         message += " " + e.getCause().getMessage();
                     }
-                    view.write("Failure due to:" + message);
-                    view.write("Try again");
+                    view.write("Отказ из-за:" + message);
+                    view.write("Попробуйте снова");
                 }
             } else {
-                view.write("Command [" + connectCommand + "] not found. Try again");
+                view.write("команда [" + connectCommand + "]Не найдено. Попробуйте снова");
             }
         }
-        view.write("Connection successful");
+        view.write("Соединение успешно");
     }
 }
