@@ -6,6 +6,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
 
+import java.util.Arrays;
+
+import static junit.framework.TestCase.assertEquals;
+
+
 public class MySqlDatabaseManagerTest {
     private MySqlDatabaseManager manager;
 
@@ -15,6 +20,7 @@ public class MySqlDatabaseManagerTest {
     @Before
     public void setup() {
         manager = new MySqlDatabaseManager();
+        manager.connect("sqlcmd", "root", "root");
     }
 
 
@@ -23,5 +29,11 @@ public class MySqlDatabaseManagerTest {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Не могу получить соединение для базы данных\n:sqlcmd user:root password:roo,");
         manager.connect("sqlcmd", "root", "roo");
+    }
+
+    @Test
+    public void testGetTableName() {
+        String[] tables = manager.getTableNames();
+        assertEquals("[test, user]", Arrays.toString(tables));
     }
 }

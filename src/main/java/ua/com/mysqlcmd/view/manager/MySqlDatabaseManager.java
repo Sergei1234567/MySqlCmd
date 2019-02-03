@@ -1,12 +1,12 @@
 package ua.com.mysqlcmd.view.manager;
 
+import ua.com.mysqlcmd.view.view.Console;
+import ua.com.mysqlcmd.view.view.View;
+
 import java.sql.*;
+import java.util.Arrays;
 
 public class MySqlDatabaseManager implements DatabaseManager {
-
-    private Connection connection;
-    private Object userName = null;
-    private Object password = null;
 
     static {
         try {
@@ -16,7 +16,9 @@ public class MySqlDatabaseManager implements DatabaseManager {
         }
     }
 
+    private Connection connection;
 
+    @Override
     public void connect(String databaseName, String userName, String password) throws RuntimeException {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName + "?useSSL=false", userName, password);
@@ -31,14 +33,25 @@ public class MySqlDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void insert() throws RuntimeException {
+    public String[] getTableNames() {
+        View view = new Console();
         try {
             Statement stm = connection.createStatement();
-            stm.executeUpdate("INSERT  INTO user(userName, password) VALUES ('Stiven', 'Pupkin')");
+            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema='sqlcmd'");
+            String[] tables = new String[100];
+            int index = 0;
+            while (rs.next()) {
+                tables[index++] = rs.getString("table_name");
+            }
+            tables = Arrays.copyOf(tables, index, String[].class);
+            view.write(Arrays.toString(tables));
+            rs.close();
             stm.close();
+            return tables;
+
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("не могу вставить имя пользователя и пароль\n: userName:%s password:%s,",
-                    userName, password), e);
+            e.printStackTrace();
+            return new String[0];
         }
     }
 }

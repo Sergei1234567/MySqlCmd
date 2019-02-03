@@ -8,5 +8,6 @@ public interface DatabaseManager {
 
     void closeConnection() throws SQLException;
 
-    void insert() throws RuntimeException;
+    String[] getTableNames() throws SQLException;
+
 }
