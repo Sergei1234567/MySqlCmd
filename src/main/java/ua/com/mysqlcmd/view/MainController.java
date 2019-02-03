@@ -4,15 +4,17 @@ import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
 import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
 
+import java.util.Arrays;
+
 public class MainController {
     public static void main(String[] args) {
         View view = new Console();
         MySqlDatabaseManager manager = new MySqlDatabaseManager();
 
-        view.write("Привет пользователь!");
+        view.write("Hello user!");
 
         while (true) {
-            view.write("Пожалуйста, введите команду в формате: connect databaseName userName  password\n__________________");
+            view.write("Please enter a command in the format: connect databaseName userName password\n__________________");
             String command = view.read();
             String[] splittedCommand = command.split("\\s");
             String connectCommand = splittedCommand[0];
@@ -30,28 +32,29 @@ public class MainController {
                     if (e.getCause() != null) {
                         message += " " + e.getCause().getMessage();
                     }
-                    view.write("Отказ из-за:" + message);
-                    view.write("Попробуйте снова");
+                    view.write("Failure due:" + message);
+                    view.write("Try again");
                 }
             } else {
-                view.write("команда [" + connectCommand + "]Не найдено. Попробуйте снова");
+                view.write("Command[" + connectCommand + "]Not found. Try again");
             }
         }
-        view.write("Соединение успешно");
+        view.write("Success");
 
         while (true) {
-            view.write(" чтобы получить список всех таблиц введите команду в формате: getTableCommand \n_______");
+            view.write(" To get a list of all tables enter the command in the format: getTableCommand \n_______");
             String getTableCommand = view.read();
             if (getTableCommand.equals("tables")) {
                 try {
-                    manager.getTableNames();
+                    String[] tables = manager.getTableNames();
+                    view.write(Arrays.toString(tables));
                     manager.closeConnection();
                     break;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
-                view.write("команда [" + getTableCommand + " не найдена.Попробуйте снова]");
+                view.write("command [" + getTableCommand + "] not found. try again");
             }
         }
     }
