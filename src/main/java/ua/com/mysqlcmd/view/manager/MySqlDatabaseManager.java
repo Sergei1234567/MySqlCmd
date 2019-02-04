@@ -20,7 +20,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName + "?useSSL=false", userName, password);
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("Could not get database connection\n:%s user:%s password:%s,",
+            throw new RuntimeException(String.format("Could not get database connection\n:databaseName:%s user:%s password:%s,",
                     databaseName, userName, password), e);
         }
     }
