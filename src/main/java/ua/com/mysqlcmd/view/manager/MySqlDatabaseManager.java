@@ -25,6 +25,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
         }
     }
 
+    @Override
     public void closeConnection() throws SQLException {
         connection.close();
     }

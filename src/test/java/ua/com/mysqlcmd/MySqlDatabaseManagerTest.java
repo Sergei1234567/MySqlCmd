@@ -20,7 +20,6 @@ public class MySqlDatabaseManagerTest {
     @Before
     public void setup() {
         manager = new MySqlDatabaseManager();
-        manager.connect("sqlcmd", "root", "root");
     }
 
 
@@ -33,6 +32,7 @@ public class MySqlDatabaseManagerTest {
 
     @Test
     public void testGetTableName() {
+        manager.connect("sqlcmd", "root", "root");
         String[] tables = manager.getTableNames();
         assertEquals("[test, user]", Arrays.toString(tables));
     }
