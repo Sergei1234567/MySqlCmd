@@ -6,11 +6,6 @@ import java.util.Arrays;
 public class MySqlDatabaseManager implements DatabaseManager {
     private Connection connection;
 
-    public MySqlDatabaseManager(String dataTable) {
-        this.dataTable = dataTable;
-    }
-
-
     static {
         try {
             Class.forName("com.mysql.jdbc.Driver");
