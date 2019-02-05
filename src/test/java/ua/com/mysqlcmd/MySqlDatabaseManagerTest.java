@@ -25,6 +25,7 @@ public class MySqlDatabaseManagerTest {
 
     @Test
     public void testConnect() {
+        manager.connect("sqlcmd", "root", "root");
         exception.expect(RuntimeException.class);
         exception.expectMessage("Could not get database connection\n:databaseName:sqlcmd user:root password:roo,");
         manager.connect("sqlcmd", "root", "roo");
