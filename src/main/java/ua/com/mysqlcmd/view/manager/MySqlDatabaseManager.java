@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class MySqlDatabaseManager implements DatabaseManager {
     private Connection connection;
+    private String databaseName = "";
 
     static {
         try {
@@ -14,12 +15,10 @@ public class MySqlDatabaseManager implements DatabaseManager {
         }
     }
 
-    private String dataTable;
     @Override
     public void connect(String databaseName, String userName, String password) throws RuntimeException {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName + "?useSSL=false", userName, password);
-            dataTable = databaseName;
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Could not get database connection\n:databaseName:%s user:%s password:%s,",
                     databaseName, userName, password), e);
@@ -36,7 +35,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
         try {
             Statement stm = connection.createStatement();
             String[] tables = new String[100];
-            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = 'dataTable'");
+            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema" + databaseName);
             int index = 0;
             while (rs.next()) {
                 tables[index++] = rs.getString("table_name");
@@ -51,7 +50,6 @@ public class MySqlDatabaseManager implements DatabaseManager {
             throw new RuntimeException();
         }
     }
-
 }
 
 
