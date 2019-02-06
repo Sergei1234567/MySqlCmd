@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class MySqlDatabaseManager implements DatabaseManager {
     private Connection connection;
-    private String databaseName = "";
+     String databaseName = "";
 
     static {
         try {
@@ -34,8 +34,8 @@ public class MySqlDatabaseManager implements DatabaseManager {
     public String[] getTableNames() {
         try {
             Statement stm = connection.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '"+ databaseName +"'");
             String[] tables = new String[100];
-            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema" + databaseName);
             int index = 0;
             while (rs.next()) {
                 tables[index++] = rs.getString("table_name");
