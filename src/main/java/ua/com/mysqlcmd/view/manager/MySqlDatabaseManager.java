@@ -37,10 +37,9 @@ public class MySqlDatabaseManager implements DatabaseManager {
             Statement stm = connection.createStatement();
             ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '" + databaseName + "'");
             HashSet<String> tables = new HashSet<>();
-            for (int i = tables.size(); i > 0; i--){
-                databaseName = tables.add();
-            }
-                tables.add(databaseName);
+          while (rs.next()) {
+              tables.add(rs.getString("table_name"));
+          }
             stm.close();
             rs.close();
             return tables;

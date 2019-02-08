@@ -47,7 +47,7 @@ public class MainController {
             String getTableCommand = view.read();
             if (getTableCommand.equals("tables")) {
                 try {
-                HashSet<String> tables = manager.getTableNames();
+                   HashSet<String> tables = manager.getTableNames();
                     view.write(Arrays.toString(new HashSet[]{tables}));
                     manager.closeConnection();
                     break;

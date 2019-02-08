@@ -7,6 +7,7 @@ import org.junit.rules.ExpectedException;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -31,10 +32,10 @@ public class MySqlDatabaseManagerTest {
         manager.connect("sqlcmd", "root", "roo");
     }
 
-//    @Test
-//    public void testGetTableName() {
-//        manager.connect("sqlcmd", "root", "root");
-//        String[] tables = manager.getTableNames();
-//        assertEquals("[test, user]", Arrays.toString(tables));
-//    }
+    @Test
+    public void testGetTableName() {
+        manager.connect("sqlcmd", "root", "root");
+        HashSet<String>tables = manager.getTableNames();
+        assertEquals("[[test, user]]", Arrays.toString(new HashSet[]{tables}));
+    }
 }
