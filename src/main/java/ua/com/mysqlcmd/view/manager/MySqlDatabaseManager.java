@@ -33,14 +33,14 @@ public class MySqlDatabaseManager implements DatabaseManager {
 
     @Override
     public HashSet<String> getTableNames() {
-        try( Statement stm = connection.createStatement()) {
-            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '" + databaseName + "'");
-            HashSet<String> tables = new HashSet<>();
-            while (rs.next()) {
-                tables.add(rs.getString("table_name"));
+        HashSet<String> tables = new HashSet<>();
+        try (Statement stm = connection.createStatement()) {
+            try (ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '" + databaseName + "'")) {
+                while (rs.next()) {
+                    tables.add(rs.getString("table_name"));
+                }
+                return tables;
             }
-            rs.close();
-            return tables;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
