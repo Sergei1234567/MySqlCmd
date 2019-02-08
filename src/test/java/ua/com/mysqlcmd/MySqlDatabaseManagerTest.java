@@ -31,10 +31,10 @@ public class MySqlDatabaseManagerTest {
         manager.connect("sqlcmd", "root", "roo");
     }
 
-    @Test
-    public void testGetTableName() {
-        manager.connect("sqlcmd", "root", "root");
-        String[] tables = manager.getTableNames();
-        assertEquals("[test, user]", Arrays.toString(tables));
-    }
+//    @Test
+//    public void testGetTableName() {
+//        manager.connect("sqlcmd", "root", "root");
+//        String[] tables = manager.getTableNames();
+//        assertEquals("[test, user]", Arrays.toString(tables));
+//    }
 }

@@ -42,8 +42,8 @@ public class ConnectToDatabase {
             String getTableCommand = view.read();
             if (getTableCommand.equals("tables")) {
                 try {
-                    String[] tables = manager.getTableNames();
-                    view.write(Arrays.toString(tables));
+                    manager.getTableNames();
+//                    view.write(Arrays.toString(tables));
                     manager.closeConnection();
                     break;
                 } catch (Exception e) {

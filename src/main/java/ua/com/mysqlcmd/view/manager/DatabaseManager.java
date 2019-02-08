@@ -1,6 +1,7 @@
 package ua.com.mysqlcmd.view.manager;
 
 import java.sql.SQLException;
+import java.util.HashSet;
 
 public interface DatabaseManager {
 
@@ -8,6 +9,6 @@ public interface DatabaseManager {
 
     void closeConnection() throws SQLException;
 
-    String[] getTableNames() throws SQLException;
+    HashSet<String> getTableNames() throws SQLException;
 
 }

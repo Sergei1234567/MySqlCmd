@@ -1,11 +1,11 @@
 package ua.com.mysqlcmd.view.manager;
 
 import java.sql.*;
-import java.util.Arrays;
+import java.util.HashSet;
 
 public class MySqlDatabaseManager implements DatabaseManager {
     private Connection connection;
-     String databaseName = "";
+    private String databaseName = "";
 
     static {
         try {
@@ -17,6 +17,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
 
     @Override
     public void connect(String databaseName, String userName, String password) throws RuntimeException {
+        this.databaseName = databaseName;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName + "?useSSL=false", userName, password);
         } catch (SQLException e) {
@@ -31,16 +32,15 @@ public class MySqlDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public String[] getTableNames() {
+    public HashSet<String> getTableNames() {
         try {
             Statement stm = connection.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '"+ databaseName +"'");
-            String[] tables = new String[100];
-            int index = 0;
-            while (rs.next()) {
-                tables[index++] = rs.getString("table_name");
+            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '" + databaseName + "'");
+            HashSet<String> tables = new HashSet<>();
+            for (int i = tables.size(); i > 0; i--){
+                databaseName = tables.add();
             }
-            tables = Arrays.copyOf(tables, index, String[].class);
+                tables.add(databaseName);
             stm.close();
             rs.close();
             return tables;

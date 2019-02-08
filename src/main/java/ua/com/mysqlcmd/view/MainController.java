@@ -5,6 +5,7 @@ import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 
 public class MainController {
@@ -46,8 +47,8 @@ public class MainController {
             String getTableCommand = view.read();
             if (getTableCommand.equals("tables")) {
                 try {
-                    String[] tables = manager.getTableNames();
-                    view.write(Arrays.toString(tables));
+                HashSet<String> tables = manager.getTableNames();
+                    view.write(Arrays.toString(new HashSet[]{tables}));
                     manager.closeConnection();
                     break;
                 } catch (Exception e) {
