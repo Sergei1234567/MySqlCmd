@@ -13,7 +13,6 @@ public class MainController {
         view.write("Hello user!");
 
         connectToDatabase.connectCommand(manager);
-
         connectToDatabase.getTableNamesCommand(manager);
 
     }

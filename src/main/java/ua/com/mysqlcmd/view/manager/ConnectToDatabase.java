@@ -2,8 +2,6 @@ package ua.com.mysqlcmd.view.manager;
 
 import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
-
-import java.util.Arrays;
 import java.util.HashSet;
 
 public class ConnectToDatabase {
@@ -45,7 +43,7 @@ public class ConnectToDatabase {
             if (getTableCommand.equals("tables")) {
                 try {
                     HashSet<String> tables = manager.getTableNames();
-                    view.write(Arrays.toString(new HashSet[]{tables}));
+                    view.write(tables.toString());
                     manager.closeConnection();
                     break;
                 } catch (Exception e) {

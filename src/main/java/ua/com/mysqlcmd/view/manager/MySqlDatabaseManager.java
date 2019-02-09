@@ -35,12 +35,11 @@ public class MySqlDatabaseManager implements DatabaseManager {
     public HashSet<String> getTableNames() {
         HashSet<String> tables = new HashSet<>();
         try (Statement stm = connection.createStatement()) {
-            try (ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '" + databaseName + "'")) {
-                while (rs.next()) {
-                    tables.add(rs.getString("table_name"));
-                }
-                return tables;
+            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '" + databaseName + "'");
+            while (rs.next()) {
+                tables.add(rs.getString("table_name"));
             }
+            return tables;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
