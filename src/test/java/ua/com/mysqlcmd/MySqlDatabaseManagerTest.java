@@ -5,7 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
-import java.util.HashSet;
+import java.util.Set;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -32,7 +32,7 @@ public class MySqlDatabaseManagerTest {
     @Test
     public void testGetTableName() {
         manager.connect("sqlcmd", "root", "root");
-        HashSet<String>tables = manager.getTableNames();
+        Set<String> tables = manager.getTableNames();
         assertEquals("[test, user]", tables.toString());
     }
 }

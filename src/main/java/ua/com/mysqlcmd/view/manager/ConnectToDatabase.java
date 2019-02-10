@@ -2,7 +2,7 @@ package ua.com.mysqlcmd.view.manager;
 
 import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
-import java.util.HashSet;
+import java.util.Set;
 
 public class ConnectToDatabase {
     public void connectCommand(MySqlDatabaseManager manager) {
@@ -42,15 +42,20 @@ public class ConnectToDatabase {
             String getTableCommand = view.read();
             if (getTableCommand.equals("tables")) {
                 try {
-                    HashSet<String> tables = manager.getTableNames();
+                    Set<String> tables = manager.getTableNames();
                     view.write(tables.toString());
                     manager.closeConnection();
                     break;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    String message = e.getMessage();
+                    if(e.getCause() != null){
+                        message += " " + e.getCause().getMessage();
+                    }
+                    view.write("due:" + message);
+                    view.write("Try again");
                 }
             } else {
-                view.write("command [" + getTableCommand + "] not found. try again");
+                view.write("command [" + getTableCommand + "] not found.\n try again");
             }
         }
     }
