@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
 import java.util.Set;
-
-import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 
 public class MySqlDatabaseManagerTest {
@@ -33,6 +32,6 @@ public class MySqlDatabaseManagerTest {
     public void testGetTableName() {
         manager.connect("sqlcmd", "root", "root");
         Set<String> tables = manager.getTableNames();
-        assertEquals("[test, user]", tables.toString());
+        assertTrue(tables.contains("user"));
     }
 }
