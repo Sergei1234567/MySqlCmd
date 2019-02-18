@@ -18,7 +18,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void connect(String databaseName, String userName, String password) throws RuntimeException {
+    public void connect(String databaseName, String userName, String password) {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName + "?useSSL=false", userName, password);
             this.databaseName = databaseName;
@@ -30,21 +30,23 @@ public class MySqlDatabaseManager implements DatabaseManager {
 
     @Override
     public void closeConnection() throws SQLException {
-        connection.close();
+            connection.close();
+
     }
 
     @Override
-    public Set<String> getTableNames() throws RuntimeException {
+    public Set<String> getTableNames() {
         Set<String> tables = null;
         try (Statement stm = connection.createStatement()) {
-            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '" + databaseName + "'");
+            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables" +
+                    " WHERE table_schema = '" + databaseName + "'");
             tables = new HashSet<>();
             while (rs.next()) {
                 tables.add(rs.getString("table_name"));
             }
             return tables;
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("failed to get tables:tables:%s,", tables));
+            throw new RuntimeException(String.format("failed to get tables:tables:%s,", tables),e);
         }
     }
 }

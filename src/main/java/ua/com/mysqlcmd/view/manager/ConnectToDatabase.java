@@ -10,11 +10,11 @@ public class ConnectToDatabase {
         while (true) {
             view.write("Please enter a command in the format: connect databaseName userName password\n__________________");
             String command = view.read();
-            String[] splittedCommand = command.split("\\s");
-            String connectCommand = splittedCommand[0];
-            String databaseName = splittedCommand[1];
-            String userName = splittedCommand[2];
-            String password = splittedCommand[3];
+            String[] strings = command.split("\\s");
+            String connectCommand = strings[0];
+            String databaseName = strings[1];
+            String userName = strings[2];
+            String password = strings[3];
 
             if (connectCommand.equals("connect")) {
                 try {
