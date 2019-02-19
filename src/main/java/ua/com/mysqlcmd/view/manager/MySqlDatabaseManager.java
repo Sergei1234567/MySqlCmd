@@ -1,7 +1,11 @@
 package ua.com.mysqlcmd.view.manager;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 public class MySqlDatabaseManager implements DatabaseManager {
@@ -10,27 +14,40 @@ public class MySqlDatabaseManager implements DatabaseManager {
     private String databaseName;
 
     static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
+        try (FileInputStream stream = new FileInputStream("src/main/resources/application.properties")) {
+            Properties properties = new Properties();
+            properties.load(stream);
+            Class.forName(properties.getProperty("Database.Driver"));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Please add jdbc jar to project.", e);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void connect(String databaseName, String userName, String password) {
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + databaseName + "?useSSL=false", userName, password);
+        try (FileInputStream stream = new FileInputStream("src/main/resources/application.properties")) {
+            Properties properties = new Properties();
+            properties.load(stream);
+            connection = DriverManager.getConnection(properties.getProperty("Database.DataURL") +
+                    databaseName + "?useSSL=false", userName, password);
             this.databaseName = databaseName;
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Could not get database connection\n:databaseName:%s user:%s password:%s,",
                     databaseName, userName, password), e);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void closeConnection() throws SQLException {
-            connection.close();
+        connection.close();
 
     }
 
@@ -46,7 +63,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
             }
             return tables;
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("failed to get tables:tables:%s,", tables),e);
+            throw new RuntimeException(String.format("failed to get tables:tables:%s,", tables), e);
         }
     }
 }

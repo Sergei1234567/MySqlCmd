@@ -35,6 +35,7 @@ public class MySqlDatabaseManagerTest {
         manager.connect("sqlcmd", "root", "root");
         Set<String> tables = manager.getTableNames();
         assertTrue(tables.contains("user"));
+        assertTrue(tables.contains("test"));
     }
 
     @Test
@@ -42,9 +43,10 @@ public class MySqlDatabaseManagerTest {
         manager.connect("sqlcmd", "root", "root");
         Set<String> tables = manager.getTableNames();
         if (tables != null) {
-            assertEquals("[test, user]", tables.toString());
+            assertTrue(tables.contains("test"));
+            assertTrue(tables.contains("user"));
         }else {
-            assertEquals("[]", tables.toString());
+            assertTrue(tables.contains(""));
         }
     }
 }
