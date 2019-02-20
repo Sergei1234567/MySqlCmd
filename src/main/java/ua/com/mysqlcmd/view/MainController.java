@@ -1,20 +1,21 @@
 package ua.com.mysqlcmd.view;
 
-import ua.com.mysqlcmd.view.manager.ConnectToDatabase;
+import ua.com.mysqlcmd.view.manager.Connect;
 import ua.com.mysqlcmd.view.manager.MySqlDatabaseManager;
+import ua.com.mysqlcmd.view.manager.Tables;
 import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
 
 public class MainController {
     public static void main(String[] args) {
         MySqlDatabaseManager manager = new MySqlDatabaseManager();
-        ConnectToDatabase connectToDatabase = new ConnectToDatabase();
+        Connect connect = new Connect();
+        Tables tables = new Tables();
         View view = new Console();
         view.write("Hello user!");
 
-        connectToDatabase.connectCommand(manager);
-        connectToDatabase.getTableNamesCommand(manager);
-
+        connect.connectCommand(manager);
+        tables.getTableNamesCommand(manager);
+        manager.closeConnection();
     }
-
 }

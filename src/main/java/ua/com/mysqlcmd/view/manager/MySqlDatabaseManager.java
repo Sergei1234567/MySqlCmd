@@ -1,7 +1,6 @@
 package ua.com.mysqlcmd.view.manager;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashSet;
@@ -17,13 +16,11 @@ public class MySqlDatabaseManager implements DatabaseManager {
         try (FileInputStream stream = new FileInputStream("src/main/resources/application.properties")) {
             Properties properties = new Properties();
             properties.load(stream);
-            Class.forName(properties.getProperty("Database.Driver"));
+            Class.forName(properties.getProperty("database.driver"));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Please add jdbc jar to project.", e);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }  catch (IOException e) {
+            throw new RuntimeException("wrong file path application.properties.", e);
         }
     }
 
@@ -32,38 +29,39 @@ public class MySqlDatabaseManager implements DatabaseManager {
         try (FileInputStream stream = new FileInputStream("src/main/resources/application.properties")) {
             Properties properties = new Properties();
             properties.load(stream);
-            connection = DriverManager.getConnection(properties.getProperty("Database.DataURL") +
-                    databaseName + "?useSSL=false", userName, password);
+            connection = DriverManager.getConnection(properties.getProperty("database.dataURL") +
+                    databaseName + properties.getProperty("database.useSSL"), userName, password);
             this.databaseName = databaseName;
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Could not get database connection\n:databaseName:%s user:%s password:%s,",
                     databaseName, userName, password), e);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("wrong file path application.properties.", e);
         }
     }
 
     @Override
-    public void closeConnection() throws SQLException {
-        connection.close();
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public Set<String> getTableNames() {
-        Set<String> tables = null;
         try (Statement stm = connection.createStatement()) {
             ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables" +
                     " WHERE table_schema = '" + databaseName + "'");
-            tables = new HashSet<>();
+            Set<String> tables = new HashSet<>();
             while (rs.next()) {
                 tables.add(rs.getString("table_name"));
             }
             return tables;
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("failed to get tables:tables:%s,", tables), e);
+            throw new RuntimeException(String.format("failed to get tables:tables:%s,"), e);
         }
     }
 }
