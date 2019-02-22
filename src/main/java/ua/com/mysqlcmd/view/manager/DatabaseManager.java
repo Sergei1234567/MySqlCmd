@@ -1,7 +1,5 @@
 package ua.com.mysqlcmd.view.manager;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Set;
 
 public interface DatabaseManager {
@@ -12,4 +10,5 @@ public interface DatabaseManager {
 
     Set<String> getTableNames();
 
+    DataSet[] getTableData();
 }

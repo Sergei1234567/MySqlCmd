@@ -16,6 +16,7 @@ public class MainController {
 
         connect.connectCommand(manager);
         tables.getTableNamesCommand(manager);
+        manager.getTableData();
         manager.closeConnection();
     }
 }
