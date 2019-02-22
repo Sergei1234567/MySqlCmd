@@ -19,7 +19,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
             Class.forName(properties.getProperty("database.driver"));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Please add jdbc jar to project.", e);
-        }  catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("wrong file path application.properties.", e);
         }
     }
@@ -61,9 +61,10 @@ public class MySqlDatabaseManager implements DatabaseManager {
             }
             return tables;
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("failed to get tables:tables:%s,"), e);
+            throw new RuntimeException(String.format("failed to get tables:tables:%s,", databaseName), e);
         }
     }
+
 }
 
 
