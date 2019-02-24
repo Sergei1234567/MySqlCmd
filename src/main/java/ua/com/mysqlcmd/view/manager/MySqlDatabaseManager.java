@@ -47,7 +47,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
         try {
             connection.close();
         } catch (SQLException e) {
-            new RuntimeException("failed to close connection.", e);
+           throw new RuntimeException("failed to close connection.", e);
         }
 
     }
@@ -93,7 +93,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
         }
     }
 
-    public int getSize(String tableName)throws SQLException {
+    private int getSize(String tableName)throws SQLException {
         Statement stmt = connection.createStatement();
         ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM " + tableName);
         rsCount.next();
