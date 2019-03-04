@@ -1,11 +1,11 @@
-package ua.com.mysqlcmd.view.manager;
+package ua.com.mysqlcmd.view.model.manager;
 
 import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
 
 import java.util.Set;
 
-public class Tables {
+public class TableName {
     public void getTableNamesCommand(MySqlDatabaseManager manager) {
         View view = new Console();
         while (true) {

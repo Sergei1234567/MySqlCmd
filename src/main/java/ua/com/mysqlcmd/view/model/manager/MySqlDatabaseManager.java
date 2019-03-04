@@ -1,44 +1,33 @@
-package ua.com.mysqlcmd.view.manager;
+package ua.com.mysqlcmd.view.model.manager;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
+import static java.lang.String.valueOf;
+import static ua.com.mysqlcmd.view.util.ServerProperty.*;
 
 public class MySqlDatabaseManager implements DatabaseManager {
-
     private Connection connection;
     private String databaseName;
     private String tableName;
 
     static {
-        try (FileInputStream stream = new FileInputStream("src/main/resources/application.properties")) {
-            Properties properties = new Properties();
-            properties.load(stream);
-            Class.forName(properties.getProperty("database.driver"));
+        try {
+            Class.forName(valueOf(DATABASE_DRIVER.getValue()));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Please add jdbc jar to project.", e);
-        } catch (IOException e) {
-            throw new RuntimeException("wrong file path application.properties.", e);
         }
     }
 
     @Override
     public void connect(String databaseName, String userName, String password) {
-        try (FileInputStream stream = new FileInputStream("src/main/resources/application.properties")) {
-            Properties properties = new Properties();
-            properties.load(stream);
-            connection = DriverManager.getConnection(properties.getProperty("database.dataURL") +
-                    databaseName + properties.getProperty("database.useSSL"), userName, password);
+        try {
+            connection = DriverManager.getConnection(DATABASE_DATA_URL.getValue() +
+                    databaseName + DATABASE_USE_SSL.getValue());
             this.databaseName = databaseName;
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Could not get database connection\n:databaseName:%s user:%s password:%s,",
                     databaseName, userName, password), e);
-        } catch (IOException e) {
-            throw new RuntimeException("wrong file path application.properties.", e);
         }
     }
 
@@ -83,13 +72,9 @@ public class MySqlDatabaseManager implements DatabaseManager {
                     dataSet.put(rsmd.getColumnName(i), rs.getObject(i));
                 }
             }
-            System.out.println(Arrays.toString(result));
-            rs.close();
-            stmt.close();
             return result;
         } catch (SQLException e) {
-            e.printStackTrace();
-            return new DataSet[0];
+            throw new RuntimeException("no data in the table", e);
         }
     }
 

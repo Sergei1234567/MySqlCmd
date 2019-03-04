@@ -1,4 +1,4 @@
-package ua.com.mysqlcmd.view.manager;
+package ua.com.mysqlcmd.view.model.manager;
 
 import java.util.Arrays;
 

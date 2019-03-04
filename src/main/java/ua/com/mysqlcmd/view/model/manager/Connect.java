@@ -1,4 +1,4 @@
-package ua.com.mysqlcmd.view.manager;
+package ua.com.mysqlcmd.view.model.manager;
 
 import ua.com.mysqlcmd.view.view.Console;
 import ua.com.mysqlcmd.view.view.View;
@@ -21,9 +21,6 @@ public class Connect {
                     break;
                 } catch (Exception e) {
                     String message = e.getMessage();
-                    if (e.getCause() != null) {
-                        message += " " + e.getCause().getMessage();
-                    }
                     view.write("Failure due:" + message);
                     view.write("Try again");
                 }
