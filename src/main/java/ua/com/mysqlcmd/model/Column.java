@@ -1,9 +1,9 @@
-package ua.com.mysqlcmd.view.model;
+package ua.com.mysqlcmd.model;
 
-public class Table {
+public class Column {
     private String name;
 
-    public Table(String name) {
+    public Column(String name) {
         this.name = name;
     }
 
@@ -14,5 +14,4 @@ public class Table {
     public void setName(String name) {
         this.name = name;
     }
-
 }

@@ -1,4 +1,4 @@
-package ua.com.mysqlcmd.view.view;
+package ua.com.mysqlcmd.view;
 
 public interface View {
 

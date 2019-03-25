@@ -1,4 +1,6 @@
-package ua.com.mysqlcmd.view.model.manager;
+package ua.com.mysqlcmd.model.manager;
+
+import ua.com.mysqlcmd.model.Table;
 
 import java.util.Set;
 
@@ -10,5 +12,7 @@ public interface DatabaseManager {
 
     Set<String> getTableNames();
 
-    DataSet[] getTableData();
+    Table getTable(String tableName);
+
+
 }

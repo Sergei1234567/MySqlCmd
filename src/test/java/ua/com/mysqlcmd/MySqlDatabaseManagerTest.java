@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import ua.com.mysqlcmd.view.model.manager.MySqlDatabaseManager;
+import ua.com.mysqlcmd.model.manager.MySqlDatabaseManager;
 
 import java.util.Set;
 

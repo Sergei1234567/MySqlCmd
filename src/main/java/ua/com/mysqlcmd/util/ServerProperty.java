@@ -1,4 +1,4 @@
-package ua.com.mysqlcmd.view.util;
+package ua.com.mysqlcmd.util;
 
 import java.io.IOException;
 import java.util.Objects;
