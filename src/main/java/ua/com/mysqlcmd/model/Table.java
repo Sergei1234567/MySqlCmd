@@ -1,16 +1,36 @@
 package ua.com.mysqlcmd.model;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class Table {
     private String name;
-    private Map<Column, List<Object>> rows;
+    private List<Column> columns;
+    private List<List<Data>> data;
 
-    public Table(String name, Map<Column, List<Object>> rows) {
-        this.name = name;
-        this.rows = rows;
+    public static final class Data {
+        private String columnName;
+        private Object value;
+
+        public String getColumnName() {
+            return columnName;
+        }
+
+        public void setColumnName(String columnName) {
+            this.columnName = columnName;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public void setValue(Object value) {
+            this.value = value;
+        }
+
+        public Data(String columnName, Object value) {
+            this.columnName = columnName;
+            this.value = value;
+        }
     }
 
     public String getName() {
@@ -21,15 +41,25 @@ public class Table {
         this.name = name;
     }
 
-    public Set<Column> getColumns() {
-        return rows.keySet();
+    public List<Column> getColumns() {
+        return columns;
     }
 
-    public void setRows(Map<Column, List<Object>> rows) {
-        this.rows = rows;
+    public void setColumns(List<Column> columns) {
+        this.columns = columns;
     }
 
-    public Map<Column, List<Object>> getRows() {
-        return rows;
+    public List<List<Data>> getData() {
+        return data;
+    }
+
+    public void setData(List<List<Data>> data) {
+        this.data = data;
+    }
+
+    public Table(String name, List<Column> columns, List<List<Data>> rows) {
+        this.name = name;
+        this.columns = columns;
+        this.data = rows;
     }
 }

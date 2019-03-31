@@ -1,7 +1,11 @@
 package ua.com.mysqlcmd.controller;
 
+import ua.com.mysqlcmd.model.Column;
+import ua.com.mysqlcmd.model.Table;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.View;
+
+import java.util.List;
 import java.util.Set;
 
 public class MainController {
@@ -13,9 +17,10 @@ public class MainController {
         this.manager = manager;
     }
 
-    public void run(){
+    public void run() {
         connectToDb();
         getTableNamesDb();
+        displayingTableContents();
     }
 
     private void connectToDb() {
@@ -67,4 +72,20 @@ public class MainController {
             }
         }
     }
+
+    private void displayingTableContents() {
+        Table table = manager.getTable("user");
+        System.out.print("\n");
+        for (Column column : table.getColumns()) {
+            System.out.printf("%1$-25s", column.getName());
+        }
+        System.out.print("\n");
+        for (List<Table.Data> row : table.getData()) {
+            for (Table.Data data : row) {
+                System.out.printf("%1$-25s", data.getValue());
+            }
+            System.out.print("\n");
+        }
+    }
+
 }

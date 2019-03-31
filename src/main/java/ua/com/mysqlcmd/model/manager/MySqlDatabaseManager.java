@@ -1,6 +1,8 @@
 package ua.com.mysqlcmd.model.manager;
 
+import ua.com.mysqlcmd.controller.MainController;
 import ua.com.mysqlcmd.model.Column;
+import ua.com.mysqlcmd.model.Table.Data;
 import ua.com.mysqlcmd.util.ServerProperty;
 import ua.com.mysqlcmd.model.Table;
 
@@ -59,7 +61,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
     @Override
     public Table getTable(String tableName) {
         try (Statement stm = connection.createStatement()) {
-            ResultSet resultSet = stm.executeQuery("SELECT * FROM user;");
+            ResultSet resultSet = stm.executeQuery("SELECT * FROM " + tableName);
             ResultSetMetaData metaData = resultSet.getMetaData();
 
             int columnCount = metaData.getColumnCount();
@@ -68,16 +70,17 @@ public class MySqlDatabaseManager implements DatabaseManager {
                 columns.add(new Column(metaData.getColumnName(i)));
             }
 
-            Map<Column, List<Object>> rows = new HashMap<>();
+            List<List<Data>> rows = new ArrayList<>();
             while (resultSet.next()) {
+                List<Data> row = new ArrayList<>();
                 for (Column column : columns) {
-                    Object value = resultSet.getObject(column.getName());
-                    List<Object> objects = rows.getOrDefault(column, new ArrayList<>());
-                    objects.add(value);
-                    rows.put(column, objects);
+                    String columnName = column.getName();
+                    Object value = resultSet.getObject(columnName);
+                    row.add(new Data(columnName, value));
                 }
+                rows.add(row);
             }
-            return new Table(tableName, rows);
+            return new Table(tableName, columns, rows);
         } catch (SQLException e) {
             throw new RuntimeException("no data in the table", e);
         }
