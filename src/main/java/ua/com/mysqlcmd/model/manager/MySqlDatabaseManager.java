@@ -1,6 +1,5 @@
 package ua.com.mysqlcmd.model.manager;
 
-import ua.com.mysqlcmd.controller.MainController;
 import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.Table.Data;
 import ua.com.mysqlcmd.util.ServerProperty;
