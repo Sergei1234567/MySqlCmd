@@ -11,7 +11,6 @@ import java.util.Set;
 public class MainController {
     private View view;
     private DatabaseManager manager;
-    private String tableName;
 
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
@@ -78,8 +77,8 @@ public class MainController {
         while (true) {
             view.write("To view data from one of the tables, enter the name of the table in the format: table name\n");
             String tableNameFormat = view.read();
-            this.tableName = tableNameFormat;
-            if (tableNameFormat.equals(tableName)) {
+            String tableName = tableNameFormat;
+            if (tableName.equals(tableName)) {
                 Table table = manager.getTable(tableName);
                 try {
                     System.out.print("\n");

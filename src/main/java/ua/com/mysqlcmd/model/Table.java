@@ -7,9 +7,20 @@ public class Table {
     private List<Column> columns;
     private List<List<Data>> data;
 
+    public Table(String name, List<Column> columns, List<List<Data>> rows) {
+        this.name = name;
+        this.columns = columns;
+        this.data = rows;
+    }
+
     public static final class Data {
         private String columnName;
         private Object value;
+
+        public Data(String columnName, Object value) {
+            this.columnName = columnName;
+            this.value = value;
+        }
 
         public String getColumnName() {
             return columnName;
@@ -27,10 +38,6 @@ public class Table {
             this.value = value;
         }
 
-        public Data(String columnName, Object value) {
-            this.columnName = columnName;
-            this.value = value;
-        }
     }
 
     public String getName() {
@@ -57,9 +64,4 @@ public class Table {
         this.data = data;
     }
 
-    public Table(String name, List<Column> columns, List<List<Data>> rows) {
-        this.name = name;
-        this.columns = columns;
-        this.data = rows;
-    }
 }

@@ -46,7 +46,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
     public Set<String> getTableNames() {
         try (Statement stm = connection.createStatement()) {
             ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables" +
-                    " WHERE table_schema = '" + databaseName + "'");
+                    " WHERE table_schema = '" + databaseName + "'" + ";");
             Set<String> tables = new HashSet<>();
             while (rs.next()) {
                 tables.add(rs.getString("table_name"));
@@ -60,7 +60,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
     @Override
     public Table getTable(String tableName) {
         try (Statement stm = connection.createStatement()) {
-            ResultSet resultSet = stm.executeQuery("SELECT * FROM " + tableName);
+            ResultSet resultSet = stm.executeQuery("SELECT * FROM " + tableName + ";");
             ResultSetMetaData metaData = resultSet.getMetaData();
 
             int columnCount = metaData.getColumnCount();
