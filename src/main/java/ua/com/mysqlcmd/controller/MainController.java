@@ -18,12 +18,12 @@ public class MainController {
     }
 
     public void run() {
-        connectToDb();
-        getTableNamesDb();
-        displayingTableContents();
+        connect();
+        getTableNames();
+        displayingTableContent();
     }
 
-    private void connectToDb() {
+    private void connect() {
         while (true) {
             view.write("Hello user!");
             view.write("Please enter a command in the format: connect databaseName userName password\n__________________");
@@ -50,7 +50,7 @@ public class MainController {
         view.write("Success");
     }
 
-    private void getTableNamesDb() {
+    private void getTableNames() {
         while (true) {
             view.write(" To get a list of all tables enter the command in the format: getTableCommand \n_______");
             String getTableCommand = view.read();
@@ -73,14 +73,12 @@ public class MainController {
         }
     }
 
-    private void displayingTableContents() {
+    private void displayingTableContent() {
+        view.write("To view data from one of the tables, enter the name of the table in the format: table name\n");
+        String command = view.read();
         while (true) {
-            view.write("To view data from one of the tables, enter the name of the table in the format: table name\n");
-            String tableNameFormat = view.read();
-            String tableName = tableNameFormat;
-            tableName.equals(tableName);
             try {
-                Table table = manager.getTable(tableName);
+            Table table = manager.getTable(command);
                 System.out.print("\n");
                 for (Column column : table.getColumns()) {
                     System.out.printf("%1$-25s", column.getName());
@@ -92,6 +90,7 @@ public class MainController {
                     }
                     System.out.print("\n");
                 }
+                manager.getTable(command);
                 break;
             } catch (Exception e) {
                 String message = e.getMessage();
@@ -99,5 +98,6 @@ public class MainController {
                 view.write("Try again");
             }
         }
+
     }
 }
