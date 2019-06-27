@@ -11,6 +11,7 @@ import java.util.Set;
 public class MainController {
     private View view;
     private DatabaseManager manager;
+    private Set<String> tables;
 
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
@@ -56,7 +57,7 @@ public class MainController {
             String getTableCommand = view.read();
             if (getTableCommand.equals("tables")) {
                 try {
-                    Set<String> tables = manager.getTableNames();
+                    tables = manager.getTableNames();
                     view.write(tables.toString());
                     break;
                 } catch (Exception e) {
@@ -74,28 +75,33 @@ public class MainController {
     }
 
     private void displayingTableContent() {
-        view.write("To view data from one of the tables, enter the name of the table in the format: table name\n");
-        String command = view.read();
         while (true) {
-            try {
-            Table table = manager.getTable(command);
-                System.out.print("\n");
-                for (Column column : table.getColumns()) {
-                    System.out.printf("%1$-25s", column.getName());
-                }
-                System.out.print("\n");
-                for (List<Table.Data> row : table.getData()) {
-                    for (Table.Data data : row) {
-                        System.out.printf("%1$-25s", data.getValue());
+
+        view.write("To view data from one of the tabless, enter the name of the table in the format: table name\n________");
+        String command = view.read();
+         Table table = manager.getTable(command);
+            if (!command.equals(tables.contains(table))) {
+                this.tables = manager.getTableNames();
+                System.out.println("command [" + command + "] not found.\n try again");
+            } else {
+                try {
+                    System.out.print("\n");
+                    for (Column column : table.getColumns()) {
+                        System.out.printf("%1$-25s", column.getName());
                     }
                     System.out.print("\n");
+                    for (List<Table.Data> row : table.getData()) {
+                        for (Table.Data data : row) {
+                            System.out.printf("%1$-25s", data.getValue());
+                        }
+                        System.out.print("\n");
+                    }
+                    break;
+                } catch (Exception e) {
+                    String message = e.getMessage();
+                    view.write("Failure due:" + message);
+                    view.write("Try again");
                 }
-                manager.getTable(command);
-                break;
-            } catch (Exception e) {
-                String message = e.getMessage();
-                view.write("Failure due:" + message);
-                view.write("Try again");
             }
         }
 
