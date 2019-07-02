@@ -76,15 +76,11 @@ public class MainController {
 
     private void displayingTableContent() {
         while (true) {
-
-        view.write("To view data from one of the tabless, enter the name of the table in the format: table name\n________");
+        view.write("To view data from one of the tables, enter the name of the table in the format: table name\n___________");
         String command = view.read();
-         Table table = manager.getTable(command);
-            if (!command.equals(tables.contains(table))) {
-                this.tables = manager.getTableNames();
-                System.out.println("command [" + command + "] not found.\n try again");
-            } else {
+            if(command.equals(command)) {
                 try {
+                    Table table = manager.getTable(command);
                     System.out.print("\n");
                     for (Column column : table.getColumns()) {
                         System.out.printf("%1$-25s", column.getName());
@@ -102,7 +98,10 @@ public class MainController {
                     view.write("Failure due:" + message);
                     view.write("Try again");
                 }
+            }else {
+                System.out.printf("command [" + command + "] not found.\n try again");
             }
+
         }
 
     }
