@@ -83,14 +83,14 @@ public class MainController {
                     Table table = manager.getTable(command);
                     view.write("\n");
                     for (Column column : table.getColumns()) {
-                        System.out.printf("%1$-25s", column.getName());
+                        view.write(String.format("%1$-25s", column.getName()));
                     }
                     view.write("\n");
                     for (List<Table.Data> row : table.getData()) {
                         for (Table.Data data : row) {
-                            System.out.printf("%1$-25s", data.getValue());
+                            view.write(String.format("%1$-25s", data.getValue()));
                         }
-                        System.out.print("\n");
+                        view.write("\n");
                     }
                     break;
                 } catch (Exception e) {
