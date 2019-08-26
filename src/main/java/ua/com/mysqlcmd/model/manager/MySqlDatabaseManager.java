@@ -45,13 +45,17 @@ public class MySqlDatabaseManager implements DatabaseManager {
     @Override
     public Set<String> getTableNames() {
         try (Statement stm = connection.createStatement()) {
-            ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables" +
-                    " WHERE table_schema = '" + databaseName + "'" + ";");
-            Set<String> tables = new HashSet<>();
-            while (rs.next()) {
-                tables.add(rs.getString("table_name"));
+            if (connection != null && !connection.isClosed()) {
+                ResultSet rs = stm.executeQuery("SELECT table_name FROM information_schema.tables" +
+                        " WHERE table_schema = '" + databaseName + "'" + ";");
+                Set<String> tables = new HashSet<>();
+                while (rs.next()) {
+                    tables.add(rs.getString("table_name"));
+                }
+                return tables;
+            } else {
+                return null;
             }
-            return tables;
         } catch (SQLException e) {
             throw new RuntimeException(String.format("failed to get tables:%s", databaseName), e);
         }
@@ -60,26 +64,30 @@ public class MySqlDatabaseManager implements DatabaseManager {
     @Override
     public Table getTable(String tableName) {
         try (Statement stm = connection.createStatement()) {
-            ResultSet resultSet = stm.executeQuery("SELECT * FROM " + tableName + ";");
-            ResultSetMetaData metaData = resultSet.getMetaData();
+            if (connection != null && !connection.isClosed()) {
+                ResultSet resultSet = stm.executeQuery("SELECT * FROM " + tableName + ";");
+                ResultSetMetaData metaData = resultSet.getMetaData();
 
-            int columnCount = metaData.getColumnCount();
-            List<Column> columns = new ArrayList<>(columnCount);
-            for (int i = 1; i <= columnCount; i++) {
-                columns.add(new Column(metaData.getColumnName(i)));
-            }
-
-            List<List<Data>> rows = new ArrayList<>();
-            while (resultSet.next()) {
-                List<Data> row = new ArrayList<>();
-                for (Column column : columns) {
-                    String columnName = column.getName();
-                    Object value = resultSet.getObject(columnName);
-                    row.add(new Data(columnName, value));
+                int columnCount = metaData.getColumnCount();
+                List<Column> columns = new ArrayList<>(columnCount);
+                for (int i = 1; i <= columnCount; i++) {
+                    columns.add(new Column(metaData.getColumnName(i)));
                 }
-                rows.add(row);
+
+                List<List<Data>> rows = new ArrayList<>();
+                while (resultSet.next()) {
+                    List<Data> row = new ArrayList<>();
+                    for (Column column : columns) {
+                        String columnName = column.getName();
+                        Object value = resultSet.getObject(columnName);
+                        row.add(new Data(columnName, value));
+                    }
+                    rows.add(row);
+                }
+                return new Table(tableName, columns, rows);
+            } else {
+                return null;
             }
-            return new Table(tableName, columns, rows);
         } catch (SQLException e) {
             throw new RuntimeException("no data in the table", e);
         }

@@ -2,6 +2,7 @@ package ua.com.mysqlcmd.model.manager;
 
 import ua.com.mysqlcmd.model.Table;
 
+import java.sql.SQLException;
 import java.util.Set;
 
 public interface DatabaseManager {
