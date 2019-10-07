@@ -1,5 +1,9 @@
 package ua.com.mysqlcmd.controller;
 
+import ua.com.mysqlcmd.command.Command;
+import ua.com.mysqlcmd.command.Exit;
+import ua.com.mysqlcmd.command.GetTableNames;
+import ua.com.mysqlcmd.command.Help;
 import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.Table;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
@@ -9,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 public class MainController {
+    private Command[] commands;
     private View view;
     private DatabaseManager manager;
     private Set<String> tables;
@@ -16,12 +21,26 @@ public class MainController {
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
+        this.commands = new Command[]{new Exit(view), new Help(view), new GetTableNames(manager, view)};
     }
 
     public void run() {
         connect();
-        getTableNames();
-        displayingTableContent();
+//        displayingTableContent();
+        while (true) {
+            view.write("Enter the command (or help for help)");
+            String command = view.read();
+            if (commands[0].canProcess(command)) {
+                commands[0].process(command);
+            } else if (commands[1].canProcess(command)) {
+                commands[1].process(command);
+            } else if (commands[2].canProcess(command)) {
+                commands[2].process(command);
+
+            } else {
+                view.write("Non-existent team: " + command);
+            }
+        }
     }
 
     private void connect() {
@@ -51,28 +70,6 @@ public class MainController {
         view.write("Success");
     }
 
-    private void getTableNames() {
-        while (true) {
-            view.write(" To get a list of all tables enter the command in the format: getTableCommand \n_______");
-            String getTableCommand = view.read();
-            if (getTableCommand.equals("tables")) {
-                try {
-                    tables = manager.getTableNames();
-                    view.write(tables.toString());
-                    break;
-                } catch (Exception e) {
-                    String message = e.getMessage();
-                    if (e.getCause() != null) {
-                        message += " " + e.getCause().getMessage();
-                    }
-                    view.write("due:" + message);
-                    view.write("Try again");
-                }
-            } else {
-                view.write("command [" + getTableCommand + "] not found.\n try again");
-            }
-        }
-    }
 
     private void displayingTableContent() {
         while (true) {
@@ -85,12 +82,10 @@ public class MainController {
                     for (Column column : table.getColumns()) {
                         view.write(String.format("%1$-25s", column.getName()));
                     }
-                    view.write("\n");
                     for (List<Table.Data> row : table.getData()) {
                         for (Table.Data data : row) {
                             view.write(String.format("%1$-25s", data.getValue()));
                         }
-                        view.write("\n");
                     }
                     break;
                 } catch (Exception e) {
