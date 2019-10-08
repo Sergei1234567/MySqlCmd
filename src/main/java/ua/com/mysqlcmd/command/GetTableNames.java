@@ -4,6 +4,7 @@ import ua.com.mysqlcmd.model.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.View;
 
 import java.util.Arrays;
+import java.util.Set;
 
 public class GetTableNames implements Command {
     private DatabaseManager manager;
@@ -21,9 +22,9 @@ public class GetTableNames implements Command {
 
     @Override
     public void process(String command) {
-        String[] tableNames = manager.getTableNames().toArray(new String[0]);
+        Set<String> tableNames = manager.getTableNames();
 
-        String message = Arrays.toString(tableNames);
+        String message = Arrays.toString(new Set[]{tableNames});
 
         view.write(message);
     }
