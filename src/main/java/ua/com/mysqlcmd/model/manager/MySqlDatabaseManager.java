@@ -39,7 +39,6 @@ public class MySqlDatabaseManager implements DatabaseManager {
         } catch (SQLException e) {
             throw new RuntimeException("failed to close connection.", e);
         }
-
     }
 
     @Override
@@ -92,7 +91,6 @@ public class MySqlDatabaseManager implements DatabaseManager {
             throw new RuntimeException("no data in the table", e);
         }
     }
-
 }
 
 

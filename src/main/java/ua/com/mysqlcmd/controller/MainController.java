@@ -4,13 +4,10 @@ import ua.com.mysqlcmd.command.*;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.View;
 
-import java.util.Set;
-
 public class MainController {
     private Command[] commands;
     private View view;
     private DatabaseManager manager;
-    private Set<String> tables;
 
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
@@ -18,25 +15,36 @@ public class MainController {
         this.commands = new Command[]{new Exit(view),
                 new Help(view),
                 new GetTableNames(manager, view),
-                new DisplayingTableContent(manager, view)};
+                new DisplayingTableContent(manager, view),
+                new Connect(manager, view),
+                new Unsupported(view)};
     }
 
     public void run() {
         connect();
         while (true) {
             view.write("Enter the command (or help for help)");
-            String command = view.read();
-            if (commands[0].canProcess(command)) {
-                commands[0].process(command);
-            } else if (commands[1].canProcess(command)) {
-                commands[1].process(command);
-            } else if (commands[2].canProcess(command)) {
-                commands[2].process(command);
-            } else if (commands[3].canProcess(command)) {
-                commands[3].process(command);
-            } else {
-                view.write("Non-existent team: " + command);
+            String input = view.read();
+
+            for (Command command : commands){
+                if (command.canProcess(input)) {
+                    command.process(input);
+                    break;
+                }
             }
+//            if (commands[0].canProcess(command)) {
+//                commands[0].process(command);
+//            } else if (commands[1].canProcess(command)) {
+//                commands[1].process(command);
+//            } else if (commands[2].canProcess(command)) {
+//                commands[2].process(command);
+//            } else if (commands[3].canProcess(command)) {
+//                commands[3].process(command);
+//            } else if (commands[4].canProcess(command)) {
+//                commands[4].process(command);
+//            } else {
+//                view.write("Non-existent team: " + command);
+//            }
         }
     }
 

@@ -14,5 +14,4 @@ public interface DatabaseManager {
 
     Table getTable(String tableName);
 
-
 }
