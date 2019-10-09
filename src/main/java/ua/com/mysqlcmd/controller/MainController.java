@@ -12,11 +12,11 @@ public class MainController {
     public MainController(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
-        this.commands = new Command[]{new Exit(view),
+        this.commands = new Command[]{
+                new Exit(view),
                 new Help(view),
                 new GetTableNames(manager, view),
                 new DisplayingTableContent(manager, view),
-                new Connect(manager, view),
                 new Unsupported(view)};
     }
 
@@ -32,19 +32,6 @@ public class MainController {
                     break;
                 }
             }
-//            if (commands[0].canProcess(command)) {
-//                commands[0].process(command);
-//            } else if (commands[1].canProcess(command)) {
-//                commands[1].process(command);
-//            } else if (commands[2].canProcess(command)) {
-//                commands[2].process(command);
-//            } else if (commands[3].canProcess(command)) {
-//                commands[3].process(command);
-//            } else if (commands[4].canProcess(command)) {
-//                commands[4].process(command);
-//            } else {
-//                view.write("Non-existent team: " + command);
-//            }
         }
     }
 
