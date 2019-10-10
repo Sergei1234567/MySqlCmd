@@ -12,7 +12,7 @@ public class MainController {
         this.view = view;
         this.commands = new Command[]{
                 new Connect(manager, view),
-                new isConnected(manager, view),
+                new IsConnected(manager, view),
                 new Exit(view),
                 new Help(view),
                 new GetTableNames(manager, view),
@@ -21,18 +21,21 @@ public class MainController {
     }
 
     public void run() {
+
+        view.write("Hello user!");
+        view.write("Please enter a command in the format: connect databaseName userName password\n__________________ ");
+
         while (true) {
-            view.write("Enter the command (or help for help)");
             String input = view.read();
 
             for (Command command : commands) {
                 if (command.canProcess(input)) {
-//                    connect();
                     command.process(input);
                     break;
                 }
             }
+            view.write("Enter the command (or help for help)");
+
         }
     }
-
 }

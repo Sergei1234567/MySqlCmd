@@ -3,13 +3,15 @@ package ua.com.mysqlcmd.command;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.View;
 
-public class isConnected implements Command {
+public class IsConnected implements Command {
+
     private DatabaseManager manager;
     private View view;
 
-    public isConnected(DatabaseManager manager, View view) {
+    public IsConnected(DatabaseManager manager, View view) {
         this.manager = manager;
         this.view = view;
+
     }
 
     @Override
@@ -19,8 +21,6 @@ public class isConnected implements Command {
 
     @Override
     public void process(String command) {
-        view.write(String.format("You conneot use the command '%s' yet" +
-                "do not connect using the command " +
-                "connect databaseName userName password", command));
+        view.write(String.format("You conneot use the command '%s' yet do not connect using the command connect databaseName userName password", command));
     }
 }

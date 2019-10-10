@@ -2,7 +2,7 @@ package ua.com.mysqlcmd.command;
 
 import ua.com.mysqlcmd.view.View;
 
-public class Help implements Command{
+public class Help implements Command {
     private View view;
 
     public Help(View view) {
@@ -16,6 +16,7 @@ public class Help implements Command{
 
     @Override
     public void process(String command) {
+
         view.write("Существующие команды:");
 
         view.write("\tconnect databaseName userName password");
@@ -38,5 +39,7 @@ public class Help implements Command{
 
         view.write("\texit");
         view.write("\t\tдля выхода из программы");
+
     }
+
 }
