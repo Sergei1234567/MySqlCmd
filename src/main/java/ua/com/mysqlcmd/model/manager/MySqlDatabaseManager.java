@@ -91,6 +91,11 @@ public class MySqlDatabaseManager implements DatabaseManager {
             throw new RuntimeException("no data in the table", e);
         }
     }
+
+    @Override
+    public boolean isConnected(){
+        return connection != null;
+    }
 }
 
 
