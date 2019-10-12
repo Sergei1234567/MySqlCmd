@@ -1,5 +1,6 @@
 package ua.com.mysqlcmd.view;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Console implements View{
@@ -11,7 +12,11 @@ public class Console implements View{
 
     @Override
     public String read() {
+        try {
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
+        }catch (NoSuchElementException e){
+            return null;
+        }
     }
 }
