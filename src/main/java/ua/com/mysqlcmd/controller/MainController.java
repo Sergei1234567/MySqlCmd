@@ -12,9 +12,9 @@ public class MainController {
         this.view = view;
         this.commands = new Command[]{
                 new Connect(manager, view),
-                new IsConnected(manager, view),
-                new Exit(view),
                 new Help(view),
+                new Exit(view),
+                new IsConnected(manager, view),
                 new GetTableNames(manager, view),
                 new DisplayingTableContent(manager, view),
                 new Unsupported(view)};
