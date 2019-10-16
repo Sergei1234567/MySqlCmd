@@ -1,4 +1,4 @@
-package ua.com.mysqlcmd;
+package ua.com.mysqlcmd.model;
 
 import org.junit.Before;
 import org.junit.Rule;

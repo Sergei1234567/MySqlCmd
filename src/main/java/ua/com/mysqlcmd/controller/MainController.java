@@ -21,9 +21,16 @@ public class MainController {
     }
 
     public void run() {
+        try {
+            doWork();
+        } catch (ExitException e) {
+            //do nothing
+        }
+    }
 
+    private void doWork() {
         view.write("Hello user!");
-        view.write("Please enter a command in the format: connect databaseName userName password\n__________________ ");
+        view.write("Please enter a command in the format: connect databaseName userName password");
 
         while (true) {
             String input = view.read();

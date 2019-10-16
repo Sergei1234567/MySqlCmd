@@ -11,7 +11,7 @@ public class Main {
         DatabaseManager manager = new MySqlDatabaseManager();
         MainController controller = new MainController(view, manager);
         controller.run();
-        manager.closeConnection();
+//        manager.closeConnection();
     }
 
 }

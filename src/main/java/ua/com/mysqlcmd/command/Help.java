@@ -17,28 +17,28 @@ public class Help implements Command {
     @Override
     public void process(String command) {
 
-        view.write("Существующие команды:");
+        view.write("Existing teams:");
 
         view.write("\tconnect databaseName userName password");
-        view.write("\t\tдля подключения к базе данных, с которой будем работать");
+        view.write("\t\tto connect to the database with which we will work");
 
         view.write("\ttables");
-        view.write("\t\tдля получения списка всех таблиц базы, к которой подключились");
+        view.write("\t\tto get a list of all the tables of the database to which you are connected");
 
         view.write("\tclear|tableName");
-        view.write("\t\tдля очистки всей таблицы"); // TODO а если юзер случайно ввел команду? Может переспросить его?
+        view.write("\t\tto clear the whole table"); // TODO а если юзер случайно ввел команду? Может переспросить его?
 
         view.write("\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN");
-        view.write("\t\tдля создания записи в таблице");
+        view.write("\t\tto create a table entry");
 
         view.write("\ttableName");
-        view.write("\t\tдля получения содержимого таблицы 'tableName'");
+        view.write("\t\tto get the contents of the table'tableName'");
 
         view.write("\thelp");
-        view.write("\t\tдля вывода этого списка на экран");
+        view.write("\t\tto display this list");
 
         view.write("\texit");
-        view.write("\t\tдля выхода из программы");
+        view.write("\t\tto exit the program");
 
     }
 
