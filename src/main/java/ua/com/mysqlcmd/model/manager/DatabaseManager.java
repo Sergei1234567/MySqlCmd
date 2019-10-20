@@ -8,7 +8,7 @@ public interface DatabaseManager {
 
     void connect(String databaseName, String userName, String password);
 
-    void closeConnection();
+    void clear(String tablename);
 
     Set<String> getTableNames();
 

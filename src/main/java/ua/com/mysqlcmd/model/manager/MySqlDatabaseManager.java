@@ -33,13 +33,32 @@ public class MySqlDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void closeConnection() {
+    public void clear(String tableName) {
         try {
-            connection.close();
+            Statement stmt = connection.createStatement();
+            stmt.executeUpdate("DELETE FROM " + tableName);
+            stmt.close();
         } catch (SQLException e) {
-            throw new RuntimeException("failed to close connection.", e);
+            e.printStackTrace();
         }
     }
+
+//    @Override
+//    public void create(String tableName, Data input) {
+//        try {
+//            Statement stmt = connection.createStatement();
+//
+//            String tableNames = getNameFormated(input, "%s,");
+//            String values = getValuesFormated(input, "'%s',");
+//
+//            stmt.executeUpdate("INSERT INTO " + tableName + " (" + tableNames + ")" +
+//                    "VALUES (" + values + ")");
+//            stmt.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 
     @Override
     public Set<String> getTableNames() {
