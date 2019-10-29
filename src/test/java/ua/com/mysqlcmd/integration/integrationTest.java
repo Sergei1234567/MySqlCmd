@@ -122,19 +122,19 @@ public class integrationTest {
                 "See you soon!\r\n", getData());
     }
 
-//    @Test
-//    public void testDisplayingTableContent_AfterConnect_WithData() {
-//
-//        //given
-//        in.add("connect sqlcmd root root");
-//        in.add("clear test");
-//        in.add("create test id 13 userName Stiven password *****");
-//        in.add("create test id 14 userName Eva password *****");
-//        in.add("test");
-//        in.add("exit");
-//
-//        //when
-//        Main.main(new String[0]);
+    @Test
+    public void testDisplayingTableContent_AfterConnect_WithData() {
+
+        //given
+        in.add("connect sqlcmd root root");
+        in.add("clear test");
+        in.add("create test id 13 userName Stiven password *****");
+        in.add("create test id 14 userName Eva password *****");
+        in.add("test");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
 //
 //        //then
 //        assertEquals("Hello user!\r\n" +
@@ -206,7 +206,7 @@ public class integrationTest {
 //                "password_-65504176       \r\n" +
 //                "Enter the command (or help for help)\r\n" +
 //                "See you soon!\r\n", getData());
-//    }
+    }
 
     @Test
     public void testUnsupported() {

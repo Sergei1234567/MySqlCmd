@@ -34,31 +34,34 @@ public class MySqlDatabaseManager implements DatabaseManager {
 
     @Override
     public void clear(String tableName) {
-        try {
-            Statement stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()){
             stmt.executeUpdate("DELETE FROM " + tableName);
-            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-//    @Override
-//    public void create(String tableName, Data input) {
-//        try {
-//            Statement stmt = connection.createStatement();
-//
-//            String tableNames = getNameFormated(input, "%s,");
-//            String values = getValuesFormated(input, "'%s',");
-//
-//            stmt.executeUpdate("INSERT INTO " + tableName + " (" + tableNames + ")" +
-//                    "VALUES (" + values + ")");
-//            stmt.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Override
+    public void create(String tableName, List<Column> columns) {
+        try ( Statement stmt = connection.createStatement()){
 
+            String columnDefinition = prepareColumnDefinitions(columns);
+
+            stmt.execute("CREATE TABLE " + tableName + " (" + columnDefinition + ");" );
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String prepareColumnDefinitions(List<Column> columns) {
+        String string = "";
+        for (Column column : columns) {
+            string += String.format("%s VARCHAR(1000), ", column.getName());
+        }
+        string = string.substring(0, string.length() - 2);
+        return string;
+    }
 
     @Override
     public Set<String> getTableNames() {
@@ -112,7 +115,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public boolean isConnected(){
+    public boolean isConnected() {
         return connection != null;
     }
 }

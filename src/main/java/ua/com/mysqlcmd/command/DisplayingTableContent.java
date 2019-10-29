@@ -42,7 +42,7 @@ public class DisplayingTableContent implements Command {
                     view.write("Try again");
                 }
             }else {
-                System.out.printf("command [" + command + "] not found.\n try again");
+                view.write("command [" + command + "] not found.\n try again");
             }
 
     }

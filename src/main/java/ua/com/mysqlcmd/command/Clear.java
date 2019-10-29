@@ -15,13 +15,17 @@ public class Clear implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return false;
+        return command.startsWith("clear");
     }
 
     @Override
     public void process(String command) {
-       String[] data = command.split("\\$");
+       String[] data = command.split("\\s");
+       if(data.length != 2){
+           throw new  IllegalArgumentException("Command format 'clear tableName',and you entered: " + command);
+       }
         manager.clear(data[1]);
 
+       view.write(String.format("The table %s has been cleared successfully.", data[1]));
     }
 }
