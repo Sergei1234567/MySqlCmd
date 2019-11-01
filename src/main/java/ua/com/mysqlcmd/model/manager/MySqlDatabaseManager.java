@@ -1,5 +1,6 @@
 package ua.com.mysqlcmd.model.manager;
 
+import ua.com.mysqlcmd.controller.Main;
 import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.Table.Data;
 import ua.com.mysqlcmd.util.ServerProperty;
@@ -34,7 +35,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
 
     @Override
     public void clear(String tableName) {
-        try (Statement stmt = connection.createStatement()){
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DELETE FROM " + tableName);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,16 +44,38 @@ public class MySqlDatabaseManager implements DatabaseManager {
 
     @Override
     public void create(String tableName, List<Column> columns) {
-        try ( Statement stmt = connection.createStatement()){
+        try (Statement stmt = connection.createStatement()) {
 
             String columnDefinition = prepareColumnDefinitions(columns);
 
-            stmt.execute("CREATE TABLE " + tableName + " (" + columnDefinition + ");" );
+            stmt.execute("CREATE TABLE " + tableName + " (" + columnDefinition + ");");
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+
+    @Override
+    public void insert(String tableName, Map<Column, String> dataInsert) {
+        Table.Data row;
+        try (Statement stmt = connection.createStatement()) {
+            String rowDefinitions = prepareRowDefinitions(dataInsert);
+            stmt.execute("INSERT INTO " + tableName + "VALUES (" + rowDefinitions + ")");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String prepareRowDefinitions(Map<Column, String> dataInsert) {
+        String string = "";
+        for (Map.Entry<Column, String> entry : dataInsert.entrySet()) {
+            string += String.format("%s VARCHAR(1000), ", entry.getValue());
+        }
+        string = string.substring(0, string.length() - 2);
+        return string;
+    }
+
 
     private String prepareColumnDefinitions(List<Column> columns) {
         String string = "";

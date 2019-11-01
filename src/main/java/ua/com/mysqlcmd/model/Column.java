@@ -15,4 +15,7 @@ public class Column {
         this.name = name;
     }
 
+    public Object getValue() {
+        return getValue();
+    }
 }

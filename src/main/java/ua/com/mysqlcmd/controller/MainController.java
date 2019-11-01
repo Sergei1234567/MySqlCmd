@@ -18,6 +18,7 @@ public class MainController {
                 new GetTableNames(manager, view),
                 new Clear(manager, view),
                 new Create(manager, view),
+                new Insert(manager, view),
                 new DisplayingTableContent(manager, view),
                 new Unsupported(view)};
     }
