@@ -1,6 +1,5 @@
 package ua.com.mysqlcmd.model.manager;
 
-import ua.com.mysqlcmd.controller.Main;
 import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.Table.Data;
 import ua.com.mysqlcmd.util.ServerProperty;
@@ -46,7 +45,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
     public void create(String tableName, List<Column> columns) {
         try (Statement stmt = connection.createStatement()) {
 
-            String columnDefinition = prepareColumnDefinitions(columns);
+            String columnDefinition = prepareColumnDefinitionsForCreate(columns);
 
             stmt.execute("CREATE TABLE " + tableName + " (" + columnDefinition + ");");
 
@@ -58,29 +57,28 @@ public class MySqlDatabaseManager implements DatabaseManager {
 
     @Override
     public void insert(String tableName, Map<Column, String> dataInsert) {
-        Table.Data row;
         try (Statement stmt = connection.createStatement()) {
-            String rowDefinitions = prepareRowDefinitions(dataInsert);
-            stmt.execute("INSERT INTO " + tableName + "VALUES (" + rowDefinitions + ")");
+            String rowDefinitions = prepareValuesDefinitions(dataInsert);
+            stmt.executeUpdate("INSERT INTO " + tableName + "VALUES (" + rowDefinitions + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private String prepareRowDefinitions(Map<Column, String> dataInsert) {
-        String string = "";
+    private String prepareValuesDefinitions(Map<Column, String> dataInsert) {
+        String values = "";
         for (Map.Entry<Column, String> entry : dataInsert.entrySet()) {
-            string += String.format("%s VARCHAR(1000), ", entry.getValue());
+            values += String.format("%s ", entry.getValue());
         }
-        string = string.substring(0, string.length() - 2);
-        return string;
+        values = values.substring(0, values.length() - 2);
+        return values;
     }
 
 
-    private String prepareColumnDefinitions(List<Column> columns) {
+    private String prepareColumnDefinitionsForCreate(List<Column> columns) {
         String string = "";
         for (Column column : columns) {
-            string += String.format("%s VARCHAR(1000), ", column.getName());
+            string += String.format("%s VARCHAR(1000),  ", column.getName());
         }
         string = string.substring(0, string.length() - 2);
         return string;

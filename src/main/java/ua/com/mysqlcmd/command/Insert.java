@@ -1,15 +1,10 @@
 package ua.com.mysqlcmd.command;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 import ua.com.mysqlcmd.model.Column;
-import ua.com.mysqlcmd.model.Table;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.View;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Insert implements Command {
 
@@ -31,14 +26,22 @@ public class Insert implements Command {
     public void process(String command) {
 
         String[] data = command.split("\\s");
-        Map<Column, String> dataInsert = new LinkedHashMap<>();
+        // TODO сделать у всех команд одинаковый формат вывода сообщений об ошибке
+        if (data.length % 2 != 0) {
+            throw new IllegalArgumentException(String.format("Должно быть четное " +
+                    "количество параметров в формате " +
+                    "'create|tableName|column1|value1|column2|value2|...|columnN|valueN', " +
+                    "а ты прислал: '%s'", command));
+        }
+
         String tableName = data[1];
+        Map<Column, String> dataInsert = new HashMap<>();
 
-        for (int index = 2; index < data.length; index++) {
-           String columnName = data[index];
-            String value = data[index];
+        for (int index = 2; index < (data.length / 2); index++) {
+            String columnName = data[index * 2];
+            String value = data[index * 2 + 1];
 
-            dataInsert.put(columnName,value);
+            dataInsert.put(new Column(columnName), value);
         }
         manager.insert(tableName, dataInsert);
 
