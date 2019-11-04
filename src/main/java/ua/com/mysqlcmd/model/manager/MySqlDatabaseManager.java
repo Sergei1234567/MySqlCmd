@@ -58,8 +58,9 @@ public class MySqlDatabaseManager implements DatabaseManager {
     @Override
     public void insert(String tableName, Map<Column, String> dataInsert) {
         try (Statement stmt = connection.createStatement()) {
+            String columnDifinitionsForInsert = prepareColumnDefinitionsForInsert(dataInsert.keySet());
             String rowDefinitions = prepareValuesDefinitions(dataInsert);
-            stmt.executeUpdate("INSERT INTO " + tableName + "VALUES (" + rowDefinitions + ")");
+            stmt.executeUpdate("INSERT INTO " + tableName + "(" + columnDifinitionsForInsert + ")" + "VALUES (" + rowDefinitions + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,17 +69,26 @@ public class MySqlDatabaseManager implements DatabaseManager {
     private String prepareValuesDefinitions(Map<Column, String> dataInsert) {
         String values = "";
         for (Map.Entry<Column, String> entry : dataInsert.entrySet()) {
-            values += String.format("%s ", entry.getValue());
+            values += String.format("'%s',", entry.getValue());
         }
-        values = values.substring(0, values.length() - 2);
+        values = values.substring(0, values.length() - 1);
         return values;
+    }
+
+    private String prepareColumnDefinitionsForInsert(Set<Column> columns) {
+        String string = "";
+        for (Column column : columns) {
+            string += String.format("%s,", column.getName());
+        }
+        string = string.substring(0, string.length() - 1);
+        return string;
     }
 
 
     private String prepareColumnDefinitionsForCreate(List<Column> columns) {
         String string = "";
         for (Column column : columns) {
-            string += String.format("%s VARCHAR(1000),  ", column.getName());
+            string += String.format("%s VARCHAR(1000), ", column.getName());
         }
         string = string.substring(0, string.length() - 2);
         return string;

@@ -15,12 +15,12 @@ public class Clear implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("clear");
+        return command.startsWith("clear|");
     }
 
     @Override
     public void process(String command) {
-       String[] data = command.split("\\s");
+       String[] data = command.split("\\|");
        if(data.length != 2){
            throw new  IllegalArgumentException("Command format 'clear tableName',and you entered: " + command);
        }

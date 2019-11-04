@@ -20,13 +20,13 @@ public class Create implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("create");
+        return command.startsWith("create|");
     }
 
     @Override
     public void process(String command) {
 
-        String[] data = command.split("\\s");
+        String[] data = command.split("\\|");
         List<Column> columns = new ArrayList<>();
         String tableName = data[1];
 

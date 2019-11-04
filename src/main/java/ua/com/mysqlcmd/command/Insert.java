@@ -25,19 +25,19 @@ public class Insert implements Command {
     @Override
     public void process(String command) {
 
-        String[] data = command.split("\\s");
-        // TODO сделать у всех команд одинаковый формат вывода сообщений об ошибке
+        String[] data = command.split("\\|");
+//        // TODO сделать у всех команд одинаковый формат вывода сообщений об ошибке
         if (data.length % 2 != 0) {
-            throw new IllegalArgumentException(String.format("Должно быть четное " +
-                    "количество параметров в формате " +
-                    "'create|tableName|column1|value1|column2|value2|...|columnN|valueN', " +
-                    "а ты прислал: '%s'", command));
+            throw new IllegalArgumentException(String.format("Must be even " +
+                    "number of parameters in the format" +
+                    "'create | tableName | column1 | value1 | column2 | value2 | ... | columnN | valueN'," +
+                    "and you sent: '%s'", command));
         }
 
         String tableName = data[1];
         Map<Column, String> dataInsert = new HashMap<>();
 
-        for (int index = 2; index < (data.length / 2); index++) {
+        for (int index = 1; index < data.length / 2; index++) {
             String columnName = data[index * 2];
             String value = data[index * 2 + 1];
 

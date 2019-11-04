@@ -135,77 +135,7 @@ public class integrationTest {
 
         //when
         Main.main(new String[0]);
-//
-//        //then
-//        assertEquals("Hello user!\r\n" +
-//                "Please enter a command in the format: connect databaseName userName password\r\n" +
-//                "Success\r\n" +
-//                "Enter the command (or help for help)\r\n" +
-//                "id                       \r\n" +
-//                "userName                 \r\n" +
-//                "password                 \r\n" +
-//                "1                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "Puprin                   \r\n" +
-//                "2                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "Puprin                   \r\n" +
-//                "3                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "Puprin                   \r\n" +
-//                "4                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "5                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "6                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "7                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "8                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "9                        \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "10                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "22                       \r\n" +
-//                "Serg                     \r\n" +
-//                "password_-65504176       \r\n" +
-//                "23                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "24                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "25                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "26                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "27                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "28                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "29                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "30                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "31                       \r\n" +
-//                "Stiven                   \r\n" +
-//                "password_-65504176       \r\n" +
-//                "Enter the command (or help for help)\r\n" +
-//                "See you soon!\r\n", getData());
+
     }
 
     @Test

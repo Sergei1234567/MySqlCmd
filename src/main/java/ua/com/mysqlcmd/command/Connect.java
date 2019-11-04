@@ -18,14 +18,14 @@ public class Connect implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("connect");
+        return command.startsWith("connect|");
     }
 
     @Override
     public void process(String command) {
 
         try {
-            String[] strings = command.split("\\s");
+            String[] strings = command.split("\\|");
             if (strings.length != count()) {
                 throw new IllegalArgumentException(String.format("the wrong number of parameters, wait &s," +
                                 " but there are: $s",
