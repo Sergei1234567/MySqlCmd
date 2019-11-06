@@ -21,7 +21,7 @@ public class IsConnected implements Command {
 
     @Override
     public void process(String command) {
-        view.write(String.format("You conneot use the command '%s' yet do not connect using the command connect " +
-                "databaseName userName password", command));
+        view.write(String.format("You conneot use the command '%s' yet do not connect using the command connect|" +
+                "databaseName|userName|password|", command));
     }
 }

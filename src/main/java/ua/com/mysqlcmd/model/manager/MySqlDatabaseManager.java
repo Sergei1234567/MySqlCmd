@@ -95,6 +95,37 @@ public class MySqlDatabaseManager implements DatabaseManager {
     }
 
     @Override
+    public void update(String tableName, int id, Map<Column, String> dataInsert) {
+        String tableNames = prepareColumnDefinitionsForUpdate(dataInsert.keySet(), "%s = ?,");
+
+        String sql = "UPDATE " + tableName + " SET " + tableNames + " WHERE id = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            int index = 1;
+            for (Map.Entry<Column, String> column : dataInsert.entrySet()) {
+                ps.setObject(index, column);
+                index++;
+            }
+            ps.setInt(index, id);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String prepareColumnDefinitionsForUpdate(Set<Column> keySet, String s) {
+        String string = "";
+        for (Column column : keySet) {
+            string += String.format(s, column.getName());
+        }
+        string = string.substring(0, string.length() - 1);
+
+        return string;
+    }
+
+
+    @Override
     public Set<String> getTableNames() {
         try (Statement stm = connection.createStatement()) {
             if (connection != null && !connection.isClosed()) {

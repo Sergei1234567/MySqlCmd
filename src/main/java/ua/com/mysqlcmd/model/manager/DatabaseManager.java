@@ -18,6 +18,8 @@ public interface DatabaseManager {
 
     void insert(String tableName, Map<Column, String> data);
 
+    void update(String tableName, int id, Map<Column, String> dataInsert);
+
     Set<String> getTableNames();
 
     Table getTable(String tableName);
