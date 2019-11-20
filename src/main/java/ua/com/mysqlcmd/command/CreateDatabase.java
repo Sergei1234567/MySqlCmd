@@ -6,29 +6,28 @@ import ua.com.mysqlcmd.view.View;
 import java.util.Arrays;
 import java.util.List;
 
-public class Clear implements Command {
+public class CreateDatabase implements Command {
 
     private final DatabaseManager manager;
     private final View view;
 
-    public Clear(DatabaseManager manager, View view) {
+    public CreateDatabase(DatabaseManager manager, View view) {
         this.manager = manager;
         this.view = view;
     }
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("clear|");
+        return command.startsWith("createDatabase|");
     }
 
     @Override
     public void process(String command) {
         List<String> data = Arrays.asList(command.split("\\|"));
-        if (data.size() != 2) {
-            throw new IllegalArgumentException("Command format 'clear tableName',and you entered: " + command);
-        }
-        manager.clear(data.get(1));
+        String dataBase = data.get(1);
+        manager.createDatabase(dataBase);
+        view.write("Database with name " + dataBase + "\n successful created");
 
-        view.write(String.format("The table %s has been cleared successfully.", data.get(1)));
+
     }
 }

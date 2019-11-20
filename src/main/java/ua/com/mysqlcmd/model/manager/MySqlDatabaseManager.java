@@ -33,6 +33,15 @@ public class MySqlDatabaseManager implements DatabaseManager {
     }
 
     @Override
+    public void createDatabase(String databaseName) {
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate("CREATE DATABASE " + databaseName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void clear(String tableName) {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DELETE FROM " + tableName);
@@ -88,42 +97,56 @@ public class MySqlDatabaseManager implements DatabaseManager {
     private String prepareColumnDefinitionsForCreate(List<Column> columns) {
         String string = "";
         for (Column column : columns) {
-            string += String.format("%s VARCHAR(1000), ", column.getName());
+            string += String.format("%s , ", column.getName());
         }
         string = string.substring(0, string.length() - 2);
         return string;
     }
 
     @Override
-    public void update(String tableName, int id, Map<Column, String> dataInsert) {
-        String tableNames = prepareColumnDefinitionsForUpdate(dataInsert.keySet(), "%s = ?,");
-
-        String sql = "UPDATE " + tableName + " SET " + tableNames + " WHERE id = ?";
+    public void update(String tableName, int id, Map<String, Object> newValues) {
+        String columnDefinitionsForUpdate = prepareColumnDefinitionsForUpdate(newValues);
+        String sql = "UPDATE " + tableName + " SET " + columnDefinitionsForUpdate + " WHERE id = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
 
             int index = 1;
-            for (Map.Entry<Column, String> column : dataInsert.entrySet()) {
-                ps.setObject(index, column);
+            for (Object value : newValues.values()) {
+                ps.setObject(index, value);
                 index++;
             }
-            ps.setInt(index, id);
-
+            ps.setObject(index, id);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private String prepareColumnDefinitionsForUpdate(Set<Column> keySet, String s) {
-        String string = "";
-        for (Column column : keySet) {
-            string += String.format(s, column.getName());
+    @Override
+    public void dropDatabase(String dataBaseName) {
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate("DROP DATABASE " + dataBaseName);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        string = string.substring(0, string.length() - 1);
-
-        return string;
     }
 
+    @Override
+    public void dropTable(String tableName) {
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate("DROP TABLE " + tableName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String prepareColumnDefinitionsForUpdate(Map<String, Object> columns) {
+        String string = "";
+        for (String column : columns.keySet()) {
+            string += String.format("%s = ?,", column);
+        }
+        string = string.substring(0, string.length() - 1);
+        return string;
+    }
 
     @Override
     public Set<String> getTableNames() {

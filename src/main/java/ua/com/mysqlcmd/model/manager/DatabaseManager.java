@@ -1,6 +1,5 @@
 package ua.com.mysqlcmd.model.manager;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.Table;
 
@@ -12,13 +11,19 @@ public interface DatabaseManager {
 
     void connect(String databaseName, String userName, String password);
 
+    void createDatabase(String databaseName);
+
     void clear(String tablename);
 
     void create(String tableName, List<Column> columns);
 
     void insert(String tableName, Map<Column, String> data);
 
-    void update(String tableName, int id, Map<Column, String> dataInsert);
+    void update(String tableName, int id, Map<String, Object> dataInsert);
+
+    void dropDatabase(String dataBaseName);
+
+    void dropTable(String tableName);
 
     Set<String> getTableNames();
 
