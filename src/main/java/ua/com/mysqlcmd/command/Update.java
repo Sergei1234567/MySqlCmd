@@ -41,5 +41,6 @@ public class Update implements Command {
             dataUpdate.put(columnName, values);
         }
         manager.update(tableName, id, dataUpdate);
+        view.write("Success");
     }
 }
