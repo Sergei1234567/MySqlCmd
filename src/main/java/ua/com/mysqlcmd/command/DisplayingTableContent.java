@@ -5,6 +5,7 @@ import ua.com.mysqlcmd.model.Table;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.View;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DisplayingTableContent implements Command {
@@ -18,33 +19,34 @@ public class DisplayingTableContent implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith(command);
+        return command.startsWith("find|");
     }
 
     @Override
     public void process(String command) {
-            if(command.equals(command)) {
-                try {
-                    Table table = manager.getTable(command);
-                    for (Column column : table.getColumns()) {
-                        System.out.printf("%1$-25s", column.getName());
-                    }
-                    view.write("\n");
-                    for (List<Table.Data> row : table.getData()) {
-                        for (Table.Data data : row) {
-                            System.out.printf("%1$-25s", data.getValue());
-                        }
-                        view.write("\n");
-                    }
-                } catch (Exception e) {
-                    String message = e.getMessage();
-                    view.write("Failure due:" + message);
-                    view.write("Try again");
-                }
-            }else {
-                view.write("command [" + command + "] not found.\n try again");
-            }
+        List<String> strings = Arrays.asList(command.split("\\|"));
+        if (strings.size() % 2 != 0) {
+            throw new IllegalArgumentException("wrong format please check help for help" + command);
+        }
+        String tableName = strings.get(1);
 
+        try {
+            Table table = manager.getTable(tableName);
+            for (Column column : table.getColumns()) {
+                System.out.printf("%1$-25s", column.getName());
+            }
+            view.write("\n");
+            for (List<Table.Data> row : table.getData()) {
+                for (Table.Data data : row) {
+                    System.out.printf("%1$-25s", data.getValue());
+                }
+                view.write("\n");
+            }
+        } catch (Exception e) {
+            String message = e.getMessage();
+            view.write("Failure due:" + message);
+            view.write("Try again");
+        }
     }
 
 }

@@ -57,4 +57,17 @@ public class MySqlDatabaseManagerTest {
             assertTrue(tables.contains(""));
         }
     }
+
+    @Test
+    public void createDatabase_ShouldContainDatabase_WhenCreateDatabaseSuccessful() {
+        //Given
+        String newDatabase = "dataBase";
+
+        //When
+        manager.createDatabase(newDatabase);
+
+        //Then
+        assertTrue(newDatabase.contains(newDatabase));
+
+    }
 }

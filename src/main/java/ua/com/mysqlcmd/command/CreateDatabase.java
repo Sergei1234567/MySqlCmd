@@ -23,6 +23,11 @@ public class CreateDatabase implements Command {
 
     @Override
     public void process(String command) {
+        List<String> strings = Arrays.asList(command.split("\\|"));
+        if (strings.size() % 2 != 0) {
+            throw new IllegalArgumentException("wrong format please check help for help ");
+        }
+
         List<String> data = Arrays.asList(command.split("\\|"));
         String dataBase = data.get(1);
         manager.createDatabase(dataBase);

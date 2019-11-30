@@ -26,7 +26,7 @@ public class Insert implements Command {
 
         List<String> data = Arrays.asList(command.split("\\|"));
         if (data.size() % 2 != 0) {
-            throw new IllegalArgumentException(String.format("wrong format please check help for help", command));
+            throw new IllegalArgumentException("wrong format please check help for help" + command);
         }
 
         String tableName = data.get(1);
@@ -36,7 +36,7 @@ public class Insert implements Command {
             String columnName = data.get(index * 2);
             String value = data.get(index * 2 + 1);
 
-            dataInsert.put(new Column(columnName), value);
+            dataInsert.put(new Column(columnName,""), value);
         }
         manager.insert(tableName, dataInsert);
 

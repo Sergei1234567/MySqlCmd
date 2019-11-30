@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         View view = new Console();
         DatabaseManager manager = new MySqlDatabaseManager();
-        MainController controller = new MainController(view, manager, new Command[]{
+        MainController controller = new MainController(view, manager,
                 new Connect(manager, view),
                 new Help(view),
                 new Exit(view),
@@ -24,9 +24,7 @@ public class Main {
                 new DisplayingTableContent(manager, view),
                 new DropTable(manager, view),
                 new DropDatabase(manager, view),
-                new Unsupported(view),
-
-        });
+                new Unsupported(view));
         controller.run();
     }
 }

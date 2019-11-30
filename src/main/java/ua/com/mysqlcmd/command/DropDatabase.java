@@ -25,7 +25,7 @@ public class DropDatabase implements Command {
     public void process(String command) {
         List<String> data = Arrays.asList(command.split("\\|"));
         if (data.size() % 2 != 0) {
-            throw new IllegalArgumentException(String.format("wrong format please check help for help ", command));
+            throw new IllegalArgumentException("wrong format please check help for help " + command);
         }
 
         String databaseName = data.get(1);
