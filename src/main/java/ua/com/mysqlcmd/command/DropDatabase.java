@@ -34,8 +34,6 @@ public class DropDatabase implements Command {
         if (view.read().equalsIgnoreCase("y")) {
             manager.dropDatabase(databaseName);
             view.write("Database " + databaseName + " dropped");
-
         }
-
     }
 }
