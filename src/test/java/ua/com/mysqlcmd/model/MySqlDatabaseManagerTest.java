@@ -5,10 +5,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import ua.com.mysqlcmd.model.manager.MySqlDatabaseManager;
+import ua.com.mysqlcmd.util.MySqlDatabaseManagerForTest;
 
 import java.util.Set;
 
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.fail;
 
 
 public class MySqlDatabaseManagerTest {
@@ -61,13 +63,19 @@ public class MySqlDatabaseManagerTest {
     @Test
     public void createDatabase_ShouldContainDatabase_WhenCreateDatabaseSuccessful() {
         //Given
-        String newDatabase = "dataBase";
+        MySqlDatabaseManagerForTest test = new MySqlDatabaseManagerForTest();
+        String newDatabase = "FD";
+        test.connect("sqlcmd", "root", "root");
 
-        //When
-        manager.createDatabase(newDatabase);
+        //when
+        test.createDatabase(newDatabase);
+        test.connect(newDatabase, "root", "root");
 
-        //Then
-        assertTrue(newDatabase.contains(newDatabase));
-
+        //then
+        Set<String> databases = test.getDatabases();
+        if (!databases.contains(newDatabase)) {
+            fail();
+        }
+        manager.dropDatabase(newDatabase);
     }
 }
