@@ -33,15 +33,6 @@ public class MySqlDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void createDatabase(String databaseName) {
-        try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("CREATE DATABASE " + databaseName);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void clear(String tableName) {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("DELETE FROM " + tableName);
@@ -116,15 +107,6 @@ public class MySqlDatabaseManager implements DatabaseManager {
             }
             ps.setObject(index, id);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void dropDatabase(String dataBaseName) {
-        try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate("DROP DATABASE " + dataBaseName);
         } catch (SQLException e) {
             e.printStackTrace();
         }

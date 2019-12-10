@@ -11,8 +11,6 @@ public interface DatabaseManager {
 
     void connect(String databaseName, String userName, String password);
 
-    void createDatabase(String databaseName);
-
     void clear(String tablename);
 
     void create(String tableName, List<Column> columns);
@@ -20,8 +18,6 @@ public interface DatabaseManager {
     void insert(String tableName, Map<Column, String> data);
 
     void update(String tableName, int id, Map<String, Object> dataInsert);
-
-    void dropDatabase(String dataBaseName);
 
     void dropTable(String tableName);
 

@@ -1,10 +1,10 @@
 package ua.com.mysqlcmd.model;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import ua.com.mysqlcmd.model.manager.MySqlDatabaseManager;
 import ua.com.mysqlcmd.util.MySqlDatabaseManagerForTest;
 
 import java.util.Set;
@@ -14,16 +14,21 @@ import static org.junit.Assert.fail;
 
 
 public class MySqlDatabaseManagerTest {
-    private MySqlDatabaseManager manager;
+    private MySqlDatabaseManagerForTest manager;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Before
     public void setup() {
-        manager = new MySqlDatabaseManager();
+        manager = new MySqlDatabaseManagerForTest();
     }
 
+    @After
+    public void cleanUp(){
+        manager.dropDatabase("fd");
+
+    }
 
     @Test
     public void connect_ShouldThrowsRuntimeException_WhenInvalidPassword() {
@@ -76,6 +81,5 @@ public class MySqlDatabaseManagerTest {
         if (!databases.contains(newDatabase)) {
             fail();
         }
-        manager.dropDatabase(newDatabase);
     }
 }
