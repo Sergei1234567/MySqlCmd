@@ -1,85 +1,97 @@
 package ua.com.mysqlcmd.model;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
-import ua.com.mysqlcmd.util.MySqlDatabaseManagerForTest;
+import ua.com.mysqlcmd.model.manager.MySqlDatabaseManager;
+import ua.com.mysqlcmd.util.DBUtil;
 
-import java.util.Set;
+import java.util.*;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
 
 
 public class MySqlDatabaseManagerTest {
-    private MySqlDatabaseManagerForTest manager;
+
+    private static final MySqlDatabaseManager mySqlManager = new MySqlDatabaseManager();
+
+    private static final DBUtil dbUtil = new DBUtil();
+
+    private static final String TEST_DATABASE = "TEST_DATABASE";
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    @Before
-    public void setup() {
-        manager = new MySqlDatabaseManagerForTest();
+    @BeforeClass
+    public static void beforeClass() {
+        String userName = "root";
+        String password = "root";
+        dbUtil.connect(userName, password);
+        dbUtil.createDatabase(TEST_DATABASE);
+        mySqlManager.connect(TEST_DATABASE, userName, password);
     }
 
-    @After
-    public void cleanUp(){
-        manager.dropDatabase("fd");
+    @AfterClass
+    public static void cleanUp() {
+        dbUtil.dropDatabase(TEST_DATABASE);
+    }
 
+    @Test
+    public void tableShouldBeEmpty_WhenClear() {
+        //Given
+        String tableName = "Dog";
+        Column id = new Column("ID", "INTEGER");
+        Column name = new Column("NAME", "VARCHAR(20)");
+        mySqlManager.create(tableName, Arrays.asList(id, name));
+
+        Map<Column, String> dataToInsert = Map.of(id, "1", name, "Jack");
+        mySqlManager.insert(tableName, dataToInsert);
+
+        //When
+        mySqlManager.clear(tableName);
+
+        //Then
+        assertEquals(1, dbUtil.count(tableName));
+        mySqlManager.dropTable(tableName);
     }
 
     @Test
     public void connect_ShouldThrowsRuntimeException_WhenInvalidPassword() {
         //Given - Then
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Could not get database connection\n:databaseName:sqlcmd user:root password:roo,");
+        exception.expectMessage("Could not get database connection\n:databaseName:TEST_DATABASE user:root password:roo,");
         //When
-        manager.connect("sqlcmd", "root", "roo");
+        mySqlManager.connect(TEST_DATABASE,"root", "roo");
     }
 
     @Test
-    public void shouldContainTableNames_WhenConnectionSuccessful() {
+    public void shouldContainsTableNames_WhenConnectionSuccessful() {
         //Given
-        manager.connect("sqlcmd", "root", "root");
+        List<Column> userColumns = List.of(new Column("ID", "INTEGER"),
+        new Column("AGE", "INTEGER"));
+
+        List<Column> testColumns = List.of(new Column("ID", "INTEGER"));
+
+        mySqlManager.create("user", userColumns);
+        mySqlManager.create("test", testColumns);
+
         //When
-        Set<String> tables = manager.getTableNames();
+        Set<String> tables = mySqlManager.getTableNames();
         //Then
         assertTrue(tables.contains("user"));
         assertTrue(tables.contains("test"));
+
+        mySqlManager.dropTable("user");
+        mySqlManager.dropTable("test");
     }
 
     @Test
     public void shouldContainTableNames_WhenTablesNotEqualToZero() {
         //Given
-        manager.connect("sqlcmd", "root", "root");
+
         //When
-        Set<String> tables = manager.getTableNames();
+        Set<String> tables = mySqlManager.getTableNames();
         //Then
-        if (tables != null) {
-            assertTrue(tables.contains("test"));
-            assertTrue(tables.contains("user"));
-        } else {
-            assertTrue(tables.contains(""));
-        }
-    }
-
-    @Test
-    public void createDatabase_ShouldContainDatabase_WhenCreateDatabaseSuccessful() {
-        //Given
-        MySqlDatabaseManagerForTest test = new MySqlDatabaseManagerForTest();
-        String newDatabase = "FD";
-        test.connect("sqlcmd", "root", "root");
-
-        //when
-        test.createDatabase(newDatabase);
-        test.connect(newDatabase, "root", "root");
-
-        //then
-        Set<String> databases = test.getDatabases();
-        if (!databases.contains(newDatabase)) {
-            fail();
-        }
+        assertEquals(0, tables.size());
     }
 }

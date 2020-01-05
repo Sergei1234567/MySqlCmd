@@ -26,5 +26,4 @@ public interface DatabaseManager {
     Table getTable(String tableName);
 
     boolean isConnected();
-
 }
