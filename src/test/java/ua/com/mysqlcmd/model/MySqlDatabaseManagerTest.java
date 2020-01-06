@@ -51,7 +51,7 @@ public class MySqlDatabaseManagerTest {
         mySqlManager.clear(tableName);
 
         //Then
-        assertEquals(1, dbUtil.count(tableName));
+        assertEquals(0, dbUtil.count(tableName));
         mySqlManager.dropTable(tableName);
     }
 

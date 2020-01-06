@@ -15,7 +15,6 @@ public class Main {
                 new Help(view),
                 new Exit(view),
                 new IsConnected(manager, view),
-//                new CreateDatabase(manager, view),
                 new GetTableNames(manager, view),
                 new Clear(manager, view),
                 new CreateTable(manager, view),
@@ -23,7 +22,6 @@ public class Main {
                 new Update(manager, view),
                 new DisplayingTableContent(manager, view),
                 new DropTable(manager, view),
-//                new DropDatabase(manager, view),
                 new Unsupported(view));
         controller.run();
     }
