@@ -23,11 +23,11 @@ public class DBUtil {
         }
     }
 
-    public int count(String tableName) {
-        String sql = "SELECT COUNT(*) FROM" + tableName;
+    public int countRows(String tableName) {
+        String sql = "SELECT FOUND_ROWS() " + tableName;
+        int count = 0;
         try (Statement ps = connection.createStatement();
              ResultSet rs = ps.executeQuery(sql)) {
-            int count = 0;
             while (rs.next()) {
                 count = rs.getInt(1);
             }

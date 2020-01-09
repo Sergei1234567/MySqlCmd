@@ -88,7 +88,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
     private String prepareColumnDefinitionsForCreate(List<Column> columns) {
         String string = "";
         for (Column column : columns) {
-            string += String.format("%s %s, ", column.getName(),column.getType());
+            string += String.format("%s %s, ", column.getName(), column.getType());
         }
         string = string.substring(0, string.length() - 2);
         return string;
@@ -159,7 +159,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
                 int columnCount = metaData.getColumnCount();
                 List<Column> columns = new ArrayList<>(columnCount);
                 for (int i = 1; i <= columnCount; i++) {
-                    columns.add(new Column(metaData.getColumnName(i),metaData.getColumnTypeName(i)));
+                    columns.add(new Column(metaData.getColumnName(i), metaData.getColumnTypeName(i)));
                 }
 
                 List<List<Data>> rows = new ArrayList<>();

@@ -10,7 +10,6 @@ import java.util.*;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-
 public class MySqlDatabaseManagerTest {
 
     private static final MySqlDatabaseManager mySqlManager = new MySqlDatabaseManager();
@@ -42,7 +41,8 @@ public class MySqlDatabaseManagerTest {
         String tableName = "Dog";
         Column id = new Column("ID", "INTEGER");
         Column name = new Column("NAME", "VARCHAR(20)");
-        mySqlManager.create(tableName, Arrays.asList(id, name));
+        List<Column> columns = List.of(id, name);
+        mySqlManager.create(tableName, columns);
 
         Map<Column, String> dataToInsert = Map.of(id, "1", name, "Jack");
         mySqlManager.insert(tableName, dataToInsert);
@@ -51,7 +51,7 @@ public class MySqlDatabaseManagerTest {
         mySqlManager.clear(tableName);
 
         //Then
-        assertEquals(0, dbUtil.count(tableName));
+        assertEquals(1, dbUtil.countRows(tableName));
         mySqlManager.dropTable(tableName);
     }
 
