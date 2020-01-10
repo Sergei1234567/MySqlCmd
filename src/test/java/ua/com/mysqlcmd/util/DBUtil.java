@@ -24,13 +24,11 @@ public class DBUtil {
     }
 
     public int countRows(String tableName) {
-        String sql = "SELECT FOUND_ROWS() " + tableName;
-        int count = 0;
+        String sql = "SELECT COUNT(*) AS rowcount FROM " + tableName;
         try (Statement ps = connection.createStatement();
              ResultSet rs = ps.executeQuery(sql)) {
-            while (rs.next()) {
-                count = rs.getInt(1);
-            }
+            rs.next();
+            int count = rs.getInt("rowcount");
             return count;
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
@@ -40,6 +38,7 @@ public class DBUtil {
     public void createDatabase(String databaseName) {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("CREATE DATABASE " + databaseName);
+            stmt.execute("USE " + databaseName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
