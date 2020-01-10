@@ -37,6 +37,7 @@ public class MySqlDatabaseManagerTest {
 
     @Test
     public void tableShouldBeEmpty_WhenClear() {
+
         //Given
         String tableName = "Dog";
         Column id = new Column("ID", "INTEGER");
