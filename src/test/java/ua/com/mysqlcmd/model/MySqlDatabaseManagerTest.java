@@ -37,7 +37,6 @@ public class MySqlDatabaseManagerTest {
 
     @Test
     public void tableShouldBeEmpty_WhenClear() {
-
         //Given
         String tableName = "Dog";
         Column id = new Column("ID", "INTEGER");
@@ -62,14 +61,14 @@ public class MySqlDatabaseManagerTest {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Could not get database connection\n:databaseName:TEST_DATABASE user:root password:roo,");
         //When
-        mySqlManager.connect(TEST_DATABASE,"root", "roo");
+        mySqlManager.connect(TEST_DATABASE, "root", "roo");
     }
 
     @Test
     public void shouldContainsTableNames_WhenConnectionSuccessful() {
         //Given
         List<Column> userColumns = List.of(new Column("ID", "INTEGER"),
-        new Column("AGE", "INTEGER"));
+                new Column("AGE", "INTEGER"));
 
         List<Column> testColumns = List.of(new Column("ID", "INTEGER"));
 
