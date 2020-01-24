@@ -1,6 +1,5 @@
 package ua.com.mysqlcmd.integration;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 public class ConfigurableInputStream extends InputStream {
@@ -9,7 +8,7 @@ public class ConfigurableInputStream extends InputStream {
     private boolean endLine = false;
 
     @Override
-    public int read() throws IOException {
+    public int read() {
         if (line.length() == 0) {
             return -1;
         }

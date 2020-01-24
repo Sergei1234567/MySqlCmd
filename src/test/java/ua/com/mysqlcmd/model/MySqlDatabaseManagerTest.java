@@ -5,10 +5,11 @@ import org.junit.rules.ExpectedException;
 import ua.com.mysqlcmd.model.manager.MySqlDatabaseManager;
 import ua.com.mysqlcmd.util.DBUtil;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class MySqlDatabaseManagerTest {
 
@@ -93,5 +94,35 @@ public class MySqlDatabaseManagerTest {
         Set<String> tables = mySqlManager.getTableNames();
         //Then
         assertEquals(0, tables.size());
+    }
+
+    @Test
+    public void shouldDropTable(){
+        //Given
+        String tableName = "car";
+        List<Column> columns = List.of(new Column("ID", "INTEGER"));
+        mySqlManager.create(tableName, columns);
+
+        //When
+        mySqlManager.dropTable("car");
+
+        //Then
+        Set<String> tableNames = mySqlManager.getTableNames();
+        assertFalse(tableNames.contains("car"));
+    }
+
+    @Test
+    public void shouldCreateTable(){
+        //Given
+        String tableName = "cat";
+        List<Column> columns = List.of(new Column("ID", "INTEGER"), new Column("NAME", "VARCHAR(20)"));
+
+        //When
+        mySqlManager.create(tableName, columns);
+
+        //Then
+        Set<String> tables = mySqlManager.getTableNames();
+        assertTrue(tables.contains(tableName));
+        mySqlManager.dropTable(tableName);
     }
 }
