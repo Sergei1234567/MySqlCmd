@@ -5,12 +5,12 @@ import java.util.List;
 public class Table {
     private String name;
     private List<Column> columns;
-    private List<List<Data>> data;
+    private List<List<Data>> rows;
 
     public Table(String name, List<Column> columns, List<List<Data>> rows) {
         this.name = name;
         this.columns = columns;
-        this.data = rows;
+        this.rows = rows;
     }
 
     public static final class Data {
@@ -56,12 +56,12 @@ public class Table {
         this.columns = columns;
     }
 
-    public List<List<Data>> getData() {
-        return data;
+    public List<List<Data>> getRows() {
+        return rows;
     }
 
-    public void setData(List<List<Data>> data) {
-        this.data = data;
+    public void setRows(List<List<Data>> rows) {
+        this.rows = rows;
     }
 
 }

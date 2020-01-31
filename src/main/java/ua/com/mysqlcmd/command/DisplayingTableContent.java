@@ -36,7 +36,7 @@ public class DisplayingTableContent implements Command {
                 System.out.printf("%1$-25s", column.getName());
             }
             view.write("\n");
-            for (List<Table.Data> row : table.getData()) {
+            for (List<Table.Data> row : table.getRows()) {
                 for (Table.Data data : row) {
                     System.out.printf("%1$-25s", data.getValue());
                 }
@@ -48,5 +48,4 @@ public class DisplayingTableContent implements Command {
             view.write("Try again");
         }
     }
-
 }

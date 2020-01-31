@@ -25,7 +25,7 @@ public class Clear implements Command {
     public void process(String command) {
         List<String> data = Arrays.asList(command.split("\\|"));
         if (data.size() != 2) {
-            throw new IllegalArgumentException("Command format 'clear tableName',and you entered: " + command);
+            throw new IllegalArgumentException(String.format("Command format 'clear|tableName',and you entered: ") + command);
         }
         manager.clear(data.get(1));
 
