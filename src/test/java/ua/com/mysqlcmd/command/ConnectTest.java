@@ -63,6 +63,7 @@ public class ConnectTest {
         command.process("connect|sqlcmd|root|root");
 
         //Then
+        verify(manager).connect("sqlcmd", "root", "root");
         verify(view).write("Success");
     }
 }

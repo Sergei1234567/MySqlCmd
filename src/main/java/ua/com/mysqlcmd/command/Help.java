@@ -31,10 +31,10 @@ public class Help implements Command {
         view.write("\tclear|tableName|");
         view.write("\t\tto clear the whole table"); // TODO а если юзер случайно ввел команду? Может переспросить его?
 
-        view.write("\tcreate|tableName|column1|value1|column2|value2|...|columnN|valueN|");
-        view.write("\t\tto create table in database, in parentheses enter column description in SQL format\n" +
-                "example: user(id SERIAL NOT NULL PRIMARY KEY,username varchar(225) NOT NULL UNIQUE," +
-                "password varchar(225))");
+        view.write("\tcreate|tableName|column1:value1|column2:value2|...|columnN:valueN|");
+        view.write("\t\tto create table in database, enter column description in SQL format\n" +
+                "example: user|id:INTEGER|username:varchar(225) NOT NULL UNIQUE|" +
+                "password:varchar(225)");
 
         view.write("\tupdate|tableName|column1|value1|column2|value2|...|columnN|valueN|");
         view.write("\t\tto update table data");
