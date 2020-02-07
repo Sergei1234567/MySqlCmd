@@ -5,6 +5,7 @@ import org.mockito.Mockito;
 import ua.com.mysqlcmd.view.View;
 
 import static junit.framework.TestCase.*;
+import static org.mockito.Mockito.verify;
 
 public class ExitTest {
 
@@ -50,7 +51,7 @@ public class ExitTest {
         }
 
         //Then
-        Mockito.verify(view).write("See you soon!");
+        verify(view).write("See you soon!");
         //throws ExitException
     }
 }

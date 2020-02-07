@@ -33,7 +33,7 @@ public class DropTable implements Command{
         view.write("You really want to drop '" + tableName + "' database? Y/N");
         if (view.read().equalsIgnoreCase("y")) {
             manager.dropTable(tableName);
-            view.write("Database " + tableName + " dropped");
+            view.write("TableName " + tableName + " dropped");
         }
     }
 }
