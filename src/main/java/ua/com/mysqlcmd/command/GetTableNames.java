@@ -23,9 +23,11 @@ public class GetTableNames implements Command {
     @Override
     public void process(String command) {
         Set<String> tableNames = manager.getTableNames();
+        if(!command.equals("tables")){
+            view.write("Non-existent team: wrong format please check help for help");
+        }
 
         String message = Arrays.toString(new Set[]{tableNames});
-
         view.write(message);
     }
 }
