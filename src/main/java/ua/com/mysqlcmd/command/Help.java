@@ -11,11 +11,14 @@ public class Help implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals("help");
+        return command.startsWith("help");
     }
 
     @Override
     public void process(String command) {
+        if(!command.equals("help")){
+            throw new IllegalArgumentException("Command format 'help',and you entered: " + command);
+        }
 
         view.write("Existing teams:");
 
@@ -29,7 +32,7 @@ public class Help implements Command {
         view.write("\t\tto get the contents of the table'tableName'");
 
         view.write("\tclear|tableName|");
-        view.write("\t\tto clear the whole table"); // TODO а если юзер случайно ввел команду? Может переспросить его?
+        view.write("\t\tto clear the whole table");
 
         view.write("\tcreate|tableName|column1:value1|column2:value2|...|columnN:valueN|");
         view.write("\t\tto create table in database, enter column description in SQL format\n" +
