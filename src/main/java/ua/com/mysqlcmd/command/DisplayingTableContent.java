@@ -33,12 +33,12 @@ public class DisplayingTableContent implements Command {
         try {
             Table table = manager.getTable(tableName);
             for (Column column : table.getColumns()) {
-                System.out.printf("%1$-25s", column.getName());
+                view.write(String.format("%1$-25s", column.getName()));
             }
             view.write("\n");
             for (List<Table.Data> row : table.getRows()) {
                 for (Table.Data data : row) {
-                    System.out.printf("%1$-25s", data.getValue());
+                    view.write(String.format("%1$-25s", data.getValue()));
                 }
                 view.write("\n");
             }

@@ -18,7 +18,7 @@ public class DBUtil {
             connection = DriverManager.getConnection(ServerProperty.DATABASE_DATA_URL.getValue() +
                     ServerProperty.DATABASE_USE_SSL.getValue(), userName, password);
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("Could not get database connection\n:databaseName:%s user:%s password:%s,",
+            throw new RuntimeException(String.format("Could not get connection to MySql server\nuser:%s password:%s,",
                     userName, password), e);
         }
     }

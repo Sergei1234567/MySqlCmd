@@ -34,7 +34,7 @@ public class CreateTableTest {
     public void shouldException_WhenInvalidCreateCommand() {
         //Given
        exception.expect(IllegalArgumentException.class);
-       exception.expectMessage("wrong format please check help for help");
+       exception.expectMessage("wrong format please check help for help ");
 
         // When
         command.process("create|");

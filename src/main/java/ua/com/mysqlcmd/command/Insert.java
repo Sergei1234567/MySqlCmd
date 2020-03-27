@@ -25,18 +25,18 @@ public class Insert implements Command {
     public void process(String command) {
 
         List<String> data = Arrays.asList(command.split("\\|"));
-        if (data.size() % 2 != 0) {
-            throw new IllegalArgumentException("wrong format please check help for help" + command);
+        if (data.size() < 2 && !data.get(0).equals("insert|")) {
+            throw new IllegalArgumentException("wrong format please check help for help " + command);
         }
-
         String tableName = data.get(1);
+
         Map<Column, String> dataInsert = new HashMap<>();
 
         for (int index = 1; index < data.size() / 2; index++) {
             String columnName = data.get(index * 2);
             String value = data.get(index * 2 + 1);
 
-            dataInsert.put(new Column(columnName,""), value);
+            dataInsert.put(new Column(columnName, ""), value);
         }
         manager.insert(tableName, dataInsert);
 

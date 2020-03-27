@@ -5,6 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.Table;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
@@ -25,6 +26,9 @@ public class DisplayingTableContentTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+    @Captor
+    private ArgumentCaptor<String> captor;
 
     @Before
     public void setUp() {
@@ -52,7 +56,7 @@ public class DisplayingTableContentTest {
     }
 
     @Test
-    public void shouldException_WhenInvalidFindCommand(){
+    public void shouldException_WhenInvalidFindCommand() {
         //Given
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("wrong format please check help for help");
@@ -64,7 +68,7 @@ public class DisplayingTableContentTest {
     }
 
     @Test
-    public void test() {
+    public void processShouldSuccess_WhenValidCommandFind() {
         //Given
         List<Column> column = new ArrayList<>();
         Column column1 = new Column("id", "INTEGER");
@@ -92,6 +96,8 @@ public class DisplayingTableContentTest {
         //Then
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(view, atLeastOnce()).write(captor.capture());
-        assertEquals("", captor.getAllValues().toString());
+        String joinedResult = String.join("", captor.getAllValues());
+        assertEquals("id                       name                     \n" +
+                "1                        Jack                     \n", joinedResult);
     }
 }

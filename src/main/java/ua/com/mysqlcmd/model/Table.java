@@ -63,5 +63,4 @@ public class Table {
     public void setRows(List<List<Data>> rows) {
         this.rows = rows;
     }
-
 }

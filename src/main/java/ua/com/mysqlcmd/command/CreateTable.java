@@ -26,7 +26,7 @@ public class CreateTable implements Command {
     @Override
     public void process(String command) {
         List<String> data = Arrays.asList(command.split("\\|"));
-        if (data.size() < 2 && !data.get(0).equals("create")) {
+        if (data.size() < 2 && !data.get(0).equals("create|")) {
             throw new IllegalArgumentException("wrong format please check help for help " + command);
         }
         String tableName = data.get(1);

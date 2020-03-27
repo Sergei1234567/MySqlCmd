@@ -2,21 +2,14 @@ package ua.com.mysqlcmd.controller;
 
 import ua.com.mysqlcmd.command.Command;
 import ua.com.mysqlcmd.command.ExitException;
-import ua.com.mysqlcmd.model.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.View;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class MainController {
-    private DatabaseManager manager;
     private Command[] commands;
     private View view;
-    private List<String> history = new LinkedList<>();
 
-    public MainController(View view, DatabaseManager manager, Command... commands) {
+    public MainController(View view, Command... commands) {
         this.view = view;
-        this.manager = manager;
         this.commands = commands;
     }
 
@@ -37,7 +30,7 @@ public class MainController {
                     try {
                         if (command.canProcess(input)) {
                             command.process(input);
-                            history.add(input);
+//                            history.add(input);
                             break;
                         }
                     } catch (Exception e) {
