@@ -167,7 +167,7 @@ public class MySqlDatabaseManager implements DatabaseManager {
                     List<Data> row = new ArrayList<>();
                     for (Column column : columns) {
                         String columnName = column.getName();
-                        Object value = resultSet.getObject(columnName);
+                        String value = resultSet.getString(columnName);
                         row.add(new Data(columnName, value));
                     }
                     rows.add(row);

@@ -3,7 +3,7 @@ package ua.com.mysqlcmd.view;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class Console implements View{
+public class Console implements View, FormatConsole{
 
     @Override
     public void write(String message) {

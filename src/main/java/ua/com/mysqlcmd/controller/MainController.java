@@ -30,7 +30,6 @@ public class MainController {
                     try {
                         if (command.canProcess(input)) {
                             command.process(input);
-//                            history.add(input);
                             break;
                         }
                     } catch (Exception e) {

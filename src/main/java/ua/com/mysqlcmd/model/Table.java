@@ -15,11 +15,11 @@ public class Table {
 
     public static final class Data {
         private String columnName;
-        private Object value;
+        private String values;
 
-        public Data(String columnName, Object value) {
+        public Data(String columnName, String values) {
             this.columnName = columnName;
-            this.value = value;
+            this.values = values;
         }
 
         public String getColumnName() {
@@ -30,12 +30,12 @@ public class Table {
             this.columnName = columnName;
         }
 
-        public Object getValue() {
-            return value;
+        public String getValues(){
+           return values;
         }
 
-        public void setValue(Object value) {
-            this.value = value;
+        public void setValue(String values) {
+            this.values = values;
         }
 
     }
