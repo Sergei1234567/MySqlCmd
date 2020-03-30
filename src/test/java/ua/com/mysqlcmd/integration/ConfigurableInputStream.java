@@ -20,7 +20,6 @@ public class ConfigurableInputStream extends InputStream {
         char ch = line.charAt(0);
         line = line.substring(1);
 
-
         if (ch == '\n') {
             endLine = true;
         }

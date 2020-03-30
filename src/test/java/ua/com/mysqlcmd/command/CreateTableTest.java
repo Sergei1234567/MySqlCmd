@@ -33,8 +33,8 @@ public class CreateTableTest {
     @Test
     public void shouldException_WhenInvalidCreateCommand() {
         //Given
-       exception.expect(IllegalArgumentException.class);
-       exception.expectMessage("wrong format please check help for help ");
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("wrong format please check help for help ");
 
         // When
         command.process("create|");
@@ -43,7 +43,7 @@ public class CreateTableTest {
     }
 
     @Test
-    public void canProcessShouldReturnFalse_WhenInvalidCommandCreate(){
+    public void canProcessShouldReturnFalse_WhenInvalidCommandCreate() {
         //Given-When
         boolean canProcess = command.canProcess("qwe|");
 
@@ -52,7 +52,7 @@ public class CreateTableTest {
     }
 
     @Test
-    public void canProcessShouldReturnTrue_WhenValidCommandCreate(){
+    public void canProcessShouldReturnTrue_WhenValidCommandCreate() {
         //Given-When
         boolean canProcess = command.canProcess("create|");
 
@@ -61,7 +61,7 @@ public class CreateTableTest {
     }
 
     @Test
-    public void processShouldSuccess_WhenValidCommandCreate(){
+    public void processShouldSuccess_WhenValidCommandCreate() {
         //Given
 
         // When

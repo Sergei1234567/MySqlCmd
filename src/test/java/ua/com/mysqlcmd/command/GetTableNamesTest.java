@@ -24,14 +24,14 @@ public class GetTableNamesTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Before
-    public void setUp(){
+    public void setUp() {
         manager = mock(DatabaseManager.class);
         view = mock(View.class);
         command = new GetTableNames(manager, view);
     }
 
     @Test
-    public void shouldErrorMassageNonExistentTeam_WhenInvalidCommandTables(){
+    public void shouldErrorMassageNonExistentTeam_WhenInvalidCommandTables() {
         //Given
         //When
         command.process("tables");
@@ -41,7 +41,7 @@ public class GetTableNamesTest {
     }
 
     @Test
-    public void canProcessShouldReturnFalse_WhenInvalidCommandTables(){
+    public void canProcessShouldReturnFalse_WhenInvalidCommandTables() {
         //Given
         //When
         boolean canProcess = command.canProcess("qwe");
@@ -51,7 +51,7 @@ public class GetTableNamesTest {
     }
 
     @Test
-    public void canProcessReturnTrue_WhenValidCommandTables(){
+    public void canProcessReturnTrue_WhenValidCommandTables() {
         //Given
         //When
         boolean canProcess = command.canProcess("tables");
@@ -61,7 +61,7 @@ public class GetTableNamesTest {
     }
 
     @Test
-    public void processShouldSuccess_WhenValidCommandTables(){
+    public void processShouldSuccess_WhenValidCommandTables() {
         //Given
         Set<String> tableNames = new LinkedHashSet<>(Arrays.asList("table", "test"));
         when(manager.getTableNames()).thenReturn(tableNames);

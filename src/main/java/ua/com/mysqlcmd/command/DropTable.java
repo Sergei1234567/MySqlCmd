@@ -6,7 +6,7 @@ import ua.com.mysqlcmd.view.View;
 import java.util.Arrays;
 import java.util.List;
 
-public class DropTable implements Command{
+public class DropTable implements Command {
 
     private final DatabaseManager manager;
     private final View view;

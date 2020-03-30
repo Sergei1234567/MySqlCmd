@@ -16,7 +16,7 @@ public class Help implements Command {
 
     @Override
     public void process(String command) {
-        if(!command.equals("help")){
+        if (!command.equals("help")) {
             throw new IllegalArgumentException("Command format 'help',and you entered: " + command);
         }
 

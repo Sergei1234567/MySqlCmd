@@ -24,7 +24,6 @@ public class integrationTest {
         out = new ByteArrayOutputStream();
         in = new ConfigurableInputStream();
 
-
         System.setIn(in);
         System.setOut(new PrintStream(out));
     }

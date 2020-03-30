@@ -25,7 +25,7 @@ public class HelpTest {
     }
 
     @Test
-    public void shouldException_WhenInvalidCommandHelp(){
+    public void shouldException_WhenInvalidCommandHelp() {
         //Given
         exception.expect(IllegalArgumentException.class);
         exception.expectMessage("Command format 'help',and you entered: ");

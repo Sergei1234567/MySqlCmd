@@ -97,7 +97,7 @@ public class MySqlDatabaseManagerTest {
     }
 
     @Test
-    public void shouldDropTable(){
+    public void shouldDropTable() {
         //Given
         String tableName = "car";
         List<Column> columns = List.of(new Column("ID", "INTEGER"));
@@ -112,7 +112,7 @@ public class MySqlDatabaseManagerTest {
     }
 
     @Test
-    public void shouldCreateTable(){
+    public void shouldCreateTable() {
         //Given
         String tableName = "cat";
         List<Column> columns = List.of(new Column("ID", "INTEGER"), new Column("NAME", "VARCHAR(20)"));

@@ -38,7 +38,7 @@ public class ConnectTest {
     }
 
     @Test
-   public void canProcessShouldReturnTrue_WhenValidConnectCommand(){
+    public void canProcessShouldReturnTrue_WhenValidConnectCommand() {
         //Given-When
         boolean canProcess = command.canProcess("connect|");
 
@@ -47,7 +47,7 @@ public class ConnectTest {
     }
 
     @Test
-   public void canProcessShouldReturnFalse_WhenInvalidConnectCommand(){
+    public void canProcessShouldReturnFalse_WhenInvalidConnectCommand() {
         //Given-When
         boolean canProcess = command.canProcess("qwe|");
 

@@ -22,7 +22,7 @@ public enum ServerProperty {
         properties = new Properties();
         try {
             properties.load(Objects.requireNonNull(ServerProperty.class.getClassLoader().getResourceAsStream("application.properties")));
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("wrong file path application.properties.");
         }
     }

@@ -30,8 +30,8 @@ public class Table {
             this.columnName = columnName;
         }
 
-        public String getValues(){
-           return values;
+        public String getValues() {
+            return values;
         }
 
         public void setValue(String values) {

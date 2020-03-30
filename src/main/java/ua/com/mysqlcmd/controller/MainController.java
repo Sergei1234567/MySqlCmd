@@ -25,22 +25,22 @@ public class MainController {
         view.write("Hello user!");
         view.write("Please enter a command in the format: connect databaseName userName password");
         while (true) {
-               String input = view.read();
-                for (Command command : commands) {
-                    try {
-                        if (command.canProcess(input)) {
-                            command.process(input);
-                            break;
-                        }
-                    } catch (Exception e) {
-                        if (e instanceof ExitException) {
-                            throw e;
-                        }
-                        printError(e);
+            String input = view.read();
+            for (Command command : commands) {
+                try {
+                    if (command.canProcess(input)) {
+                        command.process(input);
                         break;
                     }
+                } catch (Exception e) {
+                    if (e instanceof ExitException) {
+                        throw e;
+                    }
+                    printError(e);
+                    break;
                 }
-                view.write("Enter the command (or help for help)");
+            }
+            view.write("Enter the command (or help for help)");
         }
     }
 

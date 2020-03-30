@@ -9,7 +9,6 @@ import org.mockito.Captor;
 import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.Table;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
-import ua.com.mysqlcmd.view.FormatConsole;
 import ua.com.mysqlcmd.view.View;
 
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ public class DisplayingTableContentTest {
 
     private DatabaseManager manager;
     private View view;
-    private FormatConsole formatConsole;
     Command command;
 
     @Rule
@@ -36,7 +34,7 @@ public class DisplayingTableContentTest {
     public void setUp() {
         manager = mock(DatabaseManager.class);
         view = mock(View.class);
-        command = new DisplayingTableContent(manager, view, formatConsole);
+        command = new DisplayingTableContent(manager, view);
     }
 
     @Test
@@ -96,7 +94,6 @@ public class DisplayingTableContentTest {
         command.process("find|user");
 
         //Then
-        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(view, atLeastOnce()).write(captor.capture());
         String joinedResult = String.join("", captor.getAllValues());
         assertEquals("id                       name                     \n" +
