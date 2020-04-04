@@ -14,7 +14,7 @@ import static org.mockito.Mockito.verify;
 public class ClearTest {
     private Command command;
     private DatabaseManager manager;
-    private View view;
+    private View<String> view;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();

@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class Update implements Command {
     private final DatabaseManager manager;
-    private final View view;
+    private final View<String> view;
 
-    public Update(DatabaseManager manager, View view) {
+    public Update(DatabaseManager manager, View<String> view) {
         this.manager = manager;
         this.view = view;
     }

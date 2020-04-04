@@ -3,9 +3,9 @@ package ua.com.mysqlcmd.command;
 import ua.com.mysqlcmd.view.View;
 
 public class Unsupported implements Command {
-    private View view;
+    private View<String> view;
 
-    public Unsupported(View view) {
+    public Unsupported(View<String> view) {
         this.view = view;
     }
 

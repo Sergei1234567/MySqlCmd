@@ -14,9 +14,9 @@ import static org.mockito.Mockito.verify;
 
 public class ConnectTest {
     private static String COMMAND_SAMPLE = "connect|sqlcmd|root|root";
-    DatabaseManager manager;
-    View view;
-    Command command;
+    private DatabaseManager manager;
+    private View<String> view;
+    private Command command;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();

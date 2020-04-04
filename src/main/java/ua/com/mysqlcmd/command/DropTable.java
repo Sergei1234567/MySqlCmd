@@ -9,9 +9,9 @@ import java.util.List;
 public class DropTable implements Command {
 
     private final DatabaseManager manager;
-    private final View view;
+    private final View<String> view;
 
-    public DropTable(DatabaseManager manager, View view) {
+    public DropTable(DatabaseManager manager, View<String> view) {
         this.manager = manager;
         this.view = view;
     }

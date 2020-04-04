@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 
 public class ExitTest {
 
-    private View view = Mockito.mock(View.class);
+    private View<String> view = Mockito.mock(View.class);
 
     @Test
     public void shouldExit() {

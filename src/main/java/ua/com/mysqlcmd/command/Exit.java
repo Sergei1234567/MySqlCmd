@@ -4,9 +4,9 @@ import ua.com.mysqlcmd.view.View;
 
 public class Exit implements Command {
 
-    private View view;
+    private View<String> view;
 
-    public Exit(View view) {
+    public Exit(View<String> view) {
         this.view = view;
     }
 

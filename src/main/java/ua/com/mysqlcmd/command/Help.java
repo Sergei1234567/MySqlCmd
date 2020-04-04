@@ -3,9 +3,9 @@ package ua.com.mysqlcmd.command;
 import ua.com.mysqlcmd.view.View;
 
 public class Help implements Command {
-    private View view;
+    private View<String> view;
 
-    public Help(View view) {
+    public Help(View<String> view) {
         this.view = view;
     }
 

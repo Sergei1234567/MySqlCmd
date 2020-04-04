@@ -1,6 +1,7 @@
 package ua.com.mysqlcmd.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Table {
     private String name;
@@ -46,6 +47,19 @@ public class Table {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Table table = (Table) o;
+        return name.equals(table.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     public List<Column> getColumns() {

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DisplayingTableContent implements Command {
     private DatabaseManager manager;
-    private View view;
+    private View<Table> view;
 
     public DisplayingTableContent(DatabaseManager manager, View<Table> view) {
         this.manager = manager;

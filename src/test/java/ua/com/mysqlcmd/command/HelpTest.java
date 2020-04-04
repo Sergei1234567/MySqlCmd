@@ -12,7 +12,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class HelpTest {
-    View view;
+    View<String> view;
     Command command;
 
     @Rule

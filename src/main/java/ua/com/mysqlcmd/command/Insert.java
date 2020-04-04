@@ -9,9 +9,9 @@ import java.util.*;
 public class Insert implements Command {
 
     private final DatabaseManager manager;
-    private final View view;
+    private final View<String> view;
 
-    public Insert(DatabaseManager manager, View view) {
+    public Insert(DatabaseManager manager, View<String> view) {
         this.manager = manager;
         this.view = view;
     }

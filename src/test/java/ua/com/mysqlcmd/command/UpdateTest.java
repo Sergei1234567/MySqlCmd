@@ -5,18 +5,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
-import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
 import ua.com.mysqlcmd.view.View;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import static junit.framework.TestCase.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
-public class InsertTest {
+public class UpdateTest {
     private DatabaseManager manager;
     private View<String> view;
     private Command command;
@@ -28,23 +23,23 @@ public class InsertTest {
     public void setUp() {
         manager = mock(DatabaseManager.class);
         view = mock(View.class);
-        command = new Insert(manager, view);
+        command = new Update(manager, view);
     }
 
     @Test
-    public void shouldException_WhenInvalidCommandInsert() {
+    public void shouldException_WhenInvalidCommandUpdate() {
         //Given
         exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("wrong format please check help for help ");
+        exception.expectMessage("wrong format please check help for help");
 
         //When
-        command.process("insert|");
+        command.process("update|");
 
         //Then
     }
 
     @Test
-    public void shouldCanProcessReturnFalse_WhenInvalidCommandInsert() {
+    public void shouldCanProcessReturnFalse_WhenInvalidCommandUpdate() {
         //Given
         //When
         boolean canProcess = command.canProcess("qwe|");
@@ -54,31 +49,28 @@ public class InsertTest {
     }
 
     @Test
-    public void shouldCanProcessReturnTrue_WhenValidCommandInsert() {
+    public void shouldCanProcessReturnTrue_WhenValidCommandUpdate() {
         //Given
         //When
-        boolean canProcess = command.canProcess("insert|");
+        boolean canProcess = command.canProcess("update|");
 
         //Then
         assertTrue(canProcess);
     }
 
     @Test
-    public void shouldProcessSuccess_WhenValidCommandInsert() {
+    public void shouldProcessSuccess_WhenValidCommandUpdate() {
         //Given
-        Column id = new Column("id", "INTEGER");
-        Column name = new Column("name", "VARCHAR(25)");
 
-        Map<Column, String> data = new LinkedHashMap<>();
-        data.put(id, "2");
-        data.put(name, "tom");
+        doNothing().when(manager).update(anyString(), anyInt(), anyMap());
 
         //When
-        command.process("insert|test|id|2|name|tom");
+        command.process("update|test|name|serg|id|2");
 
         //Then
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(view).write(captor.capture());
+        verify(manager).update(eq("test"),eq(2),anyMap());
         String joinedResult = String.join("", captor.getAllValues());
 
         assertEquals("Success", joinedResult);

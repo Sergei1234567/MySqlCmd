@@ -5,7 +5,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import ua.com.mysqlcmd.model.Column;
 import ua.com.mysqlcmd.model.Table;
 import ua.com.mysqlcmd.model.manager.DatabaseManager;
@@ -14,21 +13,18 @@ import ua.com.mysqlcmd.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
-import static org.mockito.internal.verification.VerificationModeFactory.atLeastOnce;
 
 public class DisplayingTableContentTest {
-
     private DatabaseManager manager;
-    private View view;
-    Command command;
+    private View<Table> view;
+    private Command command;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
-
-    @Captor
-    private ArgumentCaptor<String> captor;
 
     @Before
     public void setUp() {
@@ -87,16 +83,17 @@ public class DisplayingTableContentTest {
         List<List<Table.Data>> rows = new ArrayList<>();
         rows.add(dataList);
 
+        Table table = new Table("user", column, rows);
         when(manager.getTable("user"))
-                .thenReturn(new Table("user", column, rows));
+                .thenReturn(table);
 
         //When
         command.process("find|user");
 
         //Then
-        verify(view, atLeastOnce()).write(captor.capture());
-        String joinedResult = String.join("", captor.getAllValues());
-        assertEquals("id                       name                     \n" +
-                "1                        Jack                     \n", joinedResult);
+        ArgumentCaptor<Table> captor = ArgumentCaptor.forClass(Table.class);
+        verify(view).write(captor.capture());
+        Table resultTable = captor.getValue();
+        assertEquals("user", resultTable.getName());
     }
 }

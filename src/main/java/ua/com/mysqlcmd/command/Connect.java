@@ -11,9 +11,9 @@ public class Connect implements Command {
     private static String COMMAND_SAMPLE = "connect|sqlcmd|root|root";
 
     private DatabaseManager manager;
-    private View view;
+    private View<String> view;
 
-    public Connect(DatabaseManager manager, View view) {
+    public Connect(DatabaseManager manager, View<String> view) {
         this.manager = manager;
         this.view = view;
 

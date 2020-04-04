@@ -6,9 +6,9 @@ import ua.com.mysqlcmd.view.View;
 public class IsConnected implements Command {
 
     private DatabaseManager manager;
-    private View view;
+    private View<String> view;
 
-    public IsConnected(DatabaseManager manager, View view) {
+    public IsConnected(DatabaseManager manager, View<String> view) {
         this.manager = manager;
         this.view = view;
 

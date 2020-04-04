@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 public class GetTableNamesTest {
     DatabaseManager manager;
-    View view;
+    View<String> view;
     Command command;
 
     @Rule
@@ -31,13 +31,13 @@ public class GetTableNamesTest {
     }
 
     @Test
-    public void shouldErrorMassageNonExistentTeam_WhenInvalidCommandTables() {
+    public void shouldErrorMassageNonExistentCommand_WhenInvalidCommandTables() {
         //Given
         //When
-        command.process("tables");
+        command.process("table");
 
         //Then
-        verify(view).write("Non-existent team: wrong format please check help for help");
+        verify(view).write("Non-existent command: wrong format please check help for help");
     }
 
     @Test
@@ -71,7 +71,6 @@ public class GetTableNamesTest {
 
         //Then
         verify(manager).getTableNames();
-        String message = Arrays.toString(new Set[]{tableNames});
-        verify(view).write(message);
+        verify(view).write("[table, test]");
     }
 }

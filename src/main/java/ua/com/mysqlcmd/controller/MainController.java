@@ -6,7 +6,7 @@ import ua.com.mysqlcmd.view.View;
 
 public class MainController {
     private Command[] commands;
-    private View view;
+    private View<String> view;
 
     public MainController(View view, Command... commands) {
         this.view = view;

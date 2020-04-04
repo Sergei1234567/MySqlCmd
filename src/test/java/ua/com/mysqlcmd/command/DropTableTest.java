@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class DropTableTest {
     DatabaseManager manager;
-    View view;
+    View<String> view;
     Command command;
 
     @Rule

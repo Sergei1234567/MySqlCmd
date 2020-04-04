@@ -16,9 +16,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class CreateTableTest {
-    DatabaseManager manager;
-    View view;
-    Command command;
+   private DatabaseManager manager;
+   private View<String> view;
+   private Command command;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
